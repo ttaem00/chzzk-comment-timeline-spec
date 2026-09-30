@@ -10,3 +10,14 @@ node scripts/validate.cjs --parser /absolute/path/to/comment_format.js
 첫 명령은 이 저장소의 JSON 형태, 문서 링크, 코드 블록을 확인합니다. 두 번째는 사용자가 이미 가진 호환 parser 모듈을 명시했을 때만 동작합니다. 모듈은 `parseCompatibleComments(documents, options)`를 제공해야 합니다. 이 저장소는 해당 parser를 다운로드하거나 배포하지 않습니다.
 
 실행 결과, parser SHA-256과 확인한 문서 commit은 PR 검증 기록에 고정합니다. 다른 구현 간 호환성이나 플랫폼 댓글 게시 성공은 이 fixture 대조만으로 증명되지 않습니다. 제품 실사용 검증과 이 저장소의 문서 검증은 각자 범위를 표시합니다. C08 전체 변환 기본값은 이 공개 초안으로 승인되지 않습니다.
+
+## 0.2 구현 대조 기준
+
+자연 구조 지원을 확인한 소비자 main commit은 `1b57b43ab3e45e2b132abe72e625b7da57ba39b0`이며,
+대조한 `comment_format.js` SHA-256은 `37e11b7916c64ef74dfc32c0953db83c5961919c609745680a235241bd6681e8`입니다.
+이 저장소는 구현 파일을 배포하지 않으며, 사용자는 자신이 가진 parser를 명시해 같은 합성 예제를 검사합니다.
+
+대조 결과: 기존 8건 + 자연 구조·부분 본문·붙여넣기 변형 5건, 총 13건 PASS.
+소비자 별도 검증은 66개 회귀 테스트, Chrome·Whale 패키지 검사와 실제 main Chrome의
+미리보기→한 번 채택→취소 복원→확장/탭 재로드 후 부분 상태·미확정 끝 보존을 포함합니다.
+원본 영상의 정지 시각과 기존 저장 자료도 유지됐습니다. Whale 패키지 검사는 Whale 실사용 증거가 아닙니다.
