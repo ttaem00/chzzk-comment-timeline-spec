@@ -2,6 +2,18 @@
   "kind": "public-safe-synthetic-natural-hierarchy",
   "cases": [
     {
+      "id": "natural-paste-escapes-preserve-raw",
+      "documents": [{"name": "합성 붙여넣기 목차", "raw": "00:01:00 게임&#x20;\n-00:02:00 1판⭐&#32;\n\\--00:02:10 사건&nbsp;\n00:03:00 마무리"}],
+      "context": {"durationSec": 240},
+      "expected": {
+        "starts": [60, 120, 130, 180],
+        "ends": [180, 180, null, 240],
+        "roles": ["chapter", "chapter", "point", "chapter"],
+        "depths": [1, 2, null, 1],
+        "parents": [-1, 0, 1, -1]
+      }
+    },
+    {
       "id": "natural-partial-no-invented-end",
       "documents": [{"name": "합성 부분 목차", "raw": "00:01:00 첫 게임\n- 00:02:00 1판\n--00:02:10 사건"}],
       "context": {"durationSec": 300, "completeness": "partial"},
