@@ -1,0 +1,9 @@
+{
+  "kind":"public-safe-synthetic-fixture-candidate",
+  "cases":[{
+    "id":"free-title-nested-emphasized-clocks",
+    "documents":[{"name":"강조된 중첩 목차","raw":"Evening cards (Alpha, Beta)\n- **00:00:10** Arrival\n- **00:00:20** Stakes\n- **00:00:30** Round begins\n-- **00:00:35** ⭐ Surprise\n-- __00:00:34__ Earlier moment"}],
+    "context":{"durationSec":null,"completeness":"partial"},
+    "expected":{"starts":[10,10,20,30,35,34],"ends":[null,null,null,null,null,null],"roles":["chapter","chapter","chapter","chapter","point","point"],"parents":[-1,0,0,0,3,3]}
+  }]
+}

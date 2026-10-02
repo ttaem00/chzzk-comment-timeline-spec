@@ -31,3 +31,17 @@ node scripts/validate.cjs --parser /absolute/path/to/comment_format.js
 기존 13건과 `(w. …)`/with 변형, 원문별 별칭, 충돌, 선언 원문의 상속 별칭, 구조 JSON 등 추가 6건의 합성 예제를 대조해 PASS했습니다. 소비자의 별도 회귀 검사 195건과 Chrome·Whale 패키지 검사도 PASS했습니다. 호환 JSON은 `readTimelineFile(text, name, videoNo)`로 먼저 읽고 `parseCompatibleComments`로 미리보기합니다. 역할·시각 투영이 달라지는 입력은 거부하므로 단순 JSON 문법 성공을 의미 보존 성공으로 해석하지 않습니다.
 
 현재 main Chrome의 공식 확장 입구에서 구조 JSON 선택 후 기존 자료 유지 → 미리보기 → 명시 채택 흐름을 확인했습니다. 실제 댓글 원문이나 비공개 브라우저 자료는 이 저장소의 예제에 포함하지 않았습니다. 실제 이름의 정확한 신원·참여 여부·사건 정렬·게시 성공, 타 소비자 구현 호환성과 Whale 실행은 별도 확인 대상입니다.
+
+## 0.3 CVA-TTaempad 0.3.3 후속 후보
+
+2026-10-02, 같은 소비자 PR #26의 `ttaempad.v19` 후속 후보에서 14개 시각·계층 fixture, 6개 인물·구조 JSON fixture와 참가자 규격을 대조해 PASS했습니다. 강조 기호가 감싼 시각, 자유 제목과 중첩 목록, 별표 강조, 역순 시각과 미확정 끝을 포함합니다. 소비자 회귀 검사는 212건 PASS입니다. 참가자 입력은 비교 검색 범위를 지정하며 참여 사실·채널 신원·같은 사건을 확정하지 않습니다.
+
+검사한 `comment_format.js` SHA-256: `2fd0ba6d708e28295b1532cafcbbfbb07c706b465150b61e6c6ba8dd8f61e8d2`.
+검사한 `people_input.js` SHA-256: `fbb3b4d2e42035b032bf3bd6406570c4813714a4d7201d27717fe51271e932d6`.
+대조한 소비자 구현 commit은 `61d6bf9df9d35a6e6584f5854a1e938c3c8ad220`입니다. 소비자 최종 gate는 212건, Chrome 38개 파일과 Whale 37개 파일 패키지 검사 PASS이며 [소비자 PR #26](https://github.com/ttaem00/chzzk-video-editor-workspace/pull/26)에 기록합니다. 이전 후보 검증은 위 기록의 해당 commit에만 적용됩니다.
+
+```text
+node scripts/validate.cjs --parser /absolute/path/to/comment_format.js --roster-parser /absolute/path/to/people_input.js
+```
+
+후속 후보의 실제 HLS/교차 컷 출력은 메모리 저장소를 쓰는 main Chrome 검증 화면에서 확인했습니다. 설치된 확장, 치지직 원본 플레이어, CSP/권한 동작이나 공개 게시 성공을 이 증거로 대신하지 않습니다. Chrome 확장 관리 화면의 자동 제어가 제한되어 사용자의 후보 패키지 수동 로드 후 공식 입구를 확인해야 합니다. 공개 main 채택은 아직 별개입니다.

@@ -1,0 +1,6 @@
+{
+  "schema": "chzzk.participant-roster",
+  "version": 1,
+  "members": [{"streamer":"가상 방송인 A"},{"streamer":"가상 방송인 B"}],
+  "aliases": [{"alias":"탐정","streamer":"가상 방송인 A"},{"alias":"기자","streamer":"가상 방송인 B"}]
+}

@@ -5,7 +5,8 @@ const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const fixtures = JSON.parse(fs.readFileSync(path.join(root, 'examples/fixtures.json'), 'utf8'));
 const naturalFixtures = JSON.parse(fs.readFileSync(path.join(root, 'examples/natural-hierarchy.json'), 'utf8'));
-const cases = [...fixtures.cases, ...naturalFixtures.cases];
+const emphasized=JSON.parse(fs.readFileSync(path.join(root,'examples/nested-emphasis.json'),'utf8'));
+const cases = [...fixtures.cases, ...naturalFixtures.cases,...emphasized.cases];
 const ids = new Set();
 for (const item of cases) {
   assert.ok(item.id && !ids.has(item.id)); ids.add(item.id);
@@ -15,7 +16,7 @@ for (const item of cases) {
     if (item.expected[key]) assert.equal(item.expected[key].length, item.expected.starts.length);
   }
 }
-for (const name of ['README.md', 'SPEC.md', 'SUPPORT.md', 'VALIDATION.md', 'CONTRIBUTING.md', 'PEOPLE.md', 'IMPORT.md']) {
+for (const name of ['README.md', 'SPEC.md', 'SUPPORT.md', 'VALIDATION.md', 'CONTRIBUTING.md', 'PEOPLE.md', 'IMPORT.md','ROSTER.md']) {
   const text = fs.readFileSync(path.join(root, name), 'utf8');
   assert.equal((text.match(/^```/gm) || []).length % 2, 0, `unclosed code fence in ${name}`);
   for (const [, target] of text.matchAll(/\]\(([^)]+)\)/g)) {
@@ -44,6 +45,10 @@ if (index >= 0) {
 
 const people = JSON.parse(fs.readFileSync(path.join(root,'examples/people.json'),'utf8'));
 const portable = JSON.parse(fs.readFileSync(path.join(root,'examples/portable-timeline.json'),'utf8'));
+const roster=JSON.parse(fs.readFileSync(path.join(root,'examples/participant-roster.json'),'utf8'));
+assert.equal(roster.schema,'chzzk.participant-roster');assert.equal(roster.version,1);
+const rosterIndex=process.argv.indexOf('--roster-parser');
+if(rosterIndex>=0){const reader=require(path.resolve(process.argv[rosterIndex+1]));assert.deepEqual(reader.readFile(roster),roster);console.log('Participant roster conformance PASS; fictional identities only');}
 assert.equal(portable.format,'chzzk.comment-timeline');assert.equal(portable.version,1);
 for(const item of people.cases){assert.ok(item.documents.length);assert.equal(item.expectedNames.length,item.documents.length);}
 if(index>=0){
