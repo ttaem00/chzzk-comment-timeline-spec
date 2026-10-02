@@ -15,7 +15,7 @@ for (const item of cases) {
     if (item.expected[key]) assert.equal(item.expected[key].length, item.expected.starts.length);
   }
 }
-for (const name of ['README.md', 'SPEC.md', 'SUPPORT.md', 'VALIDATION.md', 'CONTRIBUTING.md']) {
+for (const name of ['README.md', 'SPEC.md', 'SUPPORT.md', 'VALIDATION.md', 'CONTRIBUTING.md', 'PEOPLE.md', 'IMPORT.md']) {
   const text = fs.readFileSync(path.join(root, name), 'utf8');
   assert.equal((text.match(/^```/gm) || []).length % 2, 0, `unclosed code fence in ${name}`);
   for (const [, target] of text.matchAll(/\]\(([^)]+)\)/g)) {
@@ -40,4 +40,21 @@ if (index >= 0) {
     for (const doc of result.documents) assert.equal(doc.raw, item.documents[result.documents.indexOf(doc)].raw, item.id);
   }
   console.log(`Parser conformance PASS; ${cases.length} synthetic cases; ${parser.version}`);
+}
+
+const people = JSON.parse(fs.readFileSync(path.join(root,'examples/people.json'),'utf8'));
+const portable = JSON.parse(fs.readFileSync(path.join(root,'examples/portable-timeline.json'),'utf8'));
+assert.equal(portable.format,'chzzk.comment-timeline');assert.equal(portable.version,1);
+for(const item of people.cases){assert.ok(item.documents.length);assert.equal(item.expectedNames.length,item.documents.length);}
+if(index>=0){
+  const parser=require(path.resolve(process.argv[index+1]));
+  for(const item of people.cases){const result=parser.parseCompatibleComments(item.documents,{durationSec:60});
+    assert.deepEqual(result.entries.map(e=>(e.participantCandidates||e.effectiveParticipants)?.names||[]),item.expectedNames,item.id);
+    if(item.conflict)assert.ok(result.entries[0].participantCandidates.identities.every(i=>i.conflict));
+  }
+  const docs=parser.readTimelineFile(JSON.stringify(portable),'portable.json');
+  const result=parser.parseCompatibleComments(docs,{durationSec:60});
+  assert.deepEqual(result.entries.map(e=>e.role),['chapter','point','highlight']);
+  assert.deepEqual(result.entries[1].participantCandidates.names,['가상 방송인 A']);
+  console.log(`People/portable conformance PASS; ${people.cases.length+1} synthetic cases`);
 }

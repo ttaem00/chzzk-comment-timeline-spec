@@ -21,3 +21,13 @@ node scripts/validate.cjs --parser /absolute/path/to/comment_format.js
 소비자 별도 검증은 66개 회귀 테스트, Chrome·Whale 패키지 검사와 실제 main Chrome의
 미리보기→한 번 채택→취소 복원→확장/탭 재로드 후 부분 상태·미확정 끝 보존을 포함합니다.
 원본 영상의 정지 시각과 기존 저장 자료도 유지됐습니다. Whale 패키지 검사는 Whale 실사용 증거가 아닙니다.
+
+## 0.3 소비자 후보 대조
+
+2026-10-02, 소비자 구현 후보 commit `ba7dbf8232c35440966618ddeff61897f552f510`과 대조했습니다. main 채택 상태와는 별개입니다. 검사에 사용한 Windows 작업 사본 및 Chrome 후보 패키지의 `comment_format.js` SHA-256은 `f5046682770475a2abb36708298edc881632fe4184b6717667b74a93099bbbc8`입니다.
+
+동일 commit의 LF 정규화 Git blob SHA-256은 `c2318de0321e16c4da9d590c306f53ad4ff64d405612bb8f2f5ceb13728dbe7d`입니다. 운영체제 checkout의 줄바꿈 때문에 바이트 해시가 달라질 수 있으므로 구현 commit과 검사한 파일의 해시를 함께 기록합니다.
+
+기존 13건과 `(w. …)`/with 변형, 원문별 별칭, 충돌, 선언 원문의 상속 별칭, 구조 JSON 등 추가 6건의 합성 예제를 대조해 PASS했습니다. 소비자의 별도 회귀 검사 195건과 Chrome·Whale 패키지 검사도 PASS했습니다. 호환 JSON은 `readTimelineFile(text, name, videoNo)`로 먼저 읽고 `parseCompatibleComments`로 미리보기합니다. 역할·시각 투영이 달라지는 입력은 거부하므로 단순 JSON 문법 성공을 의미 보존 성공으로 해석하지 않습니다.
+
+현재 main Chrome의 공식 확장 입구에서 구조 JSON 선택 후 기존 자료 유지 → 미리보기 → 명시 채택 흐름을 확인했습니다. 실제 댓글 원문이나 비공개 브라우저 자료는 이 저장소의 예제에 포함하지 않았습니다. 실제 이름의 정확한 신원·참여 여부·사건 정렬·게시 성공, 타 소비자 구현 호환성과 Whale 실행은 별도 확인 대상입니다.
