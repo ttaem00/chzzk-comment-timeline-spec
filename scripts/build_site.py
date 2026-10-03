@@ -19,6 +19,7 @@ SOURCE = DOCS / "source"
 PAGES = [
     ("index", "빠른 시작", "시작하기"),
     ("formats", "지원 형태 한눈에", "시작하기"),
+    ("timeline", "시간축 읽는 법", "시작하기"),
     ("existing", "기존 댓글 읽기", "작성과 읽기"),
     ("ranges", "구간과 강조", "작성과 읽기"),
     ("people", "인물과 합방", "작성과 읽기"),
@@ -256,10 +257,10 @@ def main():
             if level == 2: search.append({'title':label+' · '+title,'url':key+'.html#'+anchor, 'text':title})
     (DOCS / 'assets/search-index.js').write_text('window.DOC_SEARCH = '+json.dumps(search,ensure_ascii=False).replace('<','\\u003c')+';\n',encoding='utf-8',newline='\n')
     validate_site()
-    artifact_paths = [DOCS/(key+'.html') for key,_,_ in PAGES] + list((DOCS/'assets').glob('*')) + [DOCS/'.nojekyll']
+    artifact_paths = [DOCS/(key+'.html') for key,_,_ in PAGES] + [p for p in (DOCS/'assets').rglob('*') if p.is_file()] + [DOCS/'.nojekyll']
     manifest = {'format':'cva-ttaempad.reading-site.v1','documentVersion':'0.4','consumer':'0.3.23 candidate','pages':len(PAGES),'generated':{str(p.relative_to(ROOT)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(artifact_paths)}}
     (DOCS/'build-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
-    print('Reading site build and local links PASS; 8 pages; no comment parser distributed')
+    print(f'Reading site build and local links PASS; {len(PAGES)} pages; no comment parser distributed')
 
 
 if __name__ == '__main__':
