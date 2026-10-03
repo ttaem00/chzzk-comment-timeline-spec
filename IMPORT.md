@@ -29,9 +29,11 @@
 | 항목 `startSec` | 0 이상의 안전한 정수, VOD 경과초 |
 | `endSec` | 선택적 정수, 시작보다 뒤. 영상 범위·역할에 맞는지는 host 길이를 포함한 미리보기에서 확인 |
 | `title` | 줄바꿈 없는 1,000자 이하 문자열 |
-| `role` | 생략하면 `point`; `chapter`, `memo`, `watch`, `highlight`, `expected_highlight`, `collab_context` 지원 |
+| `role` | 생략하면 `point`; `chapter`, `memo`, `watch`, `highlight`, `collab_context`. 예상 구간은 아래 현재 버전 제한 확인 |
 | `depth` | chapter일 때 1–6; 부모 누락이나 겹침은 일반 댓글과 같은 진단 규칙 적용 |
 | 루트 `videoNo` | CHZZK 소비자용 선택적 양의 영상 번호. 지정하면 현재 VOD와 같아야 함; 플랫폼 중립 시간 의미와 별개 |
+
+**현재 0.3.23의 제한:** `entries`의 `role: "expected_highlight"` 직접 입력은 역할 대조 검사에서 거부됩니다. 문서 `raw`에 `[H?]` 범위를 담으면 하이라이트 역할과 검토 전 후보 상태를 보존합니다. [가상 요약 시간표 예제](examples/summary-timeline.json)와 [요약·로컬 JSON 사용 안내](docs/source/summary.md)를 참고하세요. 호환 파일은 ttaem.com에 먼저 게시할 필요가 없습니다.
 
 입력은 250,000자 이하, 문서당 항목 최대 5,000개입니다. 본문·진단·완전성 및 영상 길이 규칙은 [의미 계약](SPEC.md)을 따릅니다. `point`는 순간이므로 `endSec`를 사용할 수 없습니다. 범위는 `memo` 또는 하이라이트 등 해당 역할로 지정하세요. 소비자는 Markdown으로 투영한 뒤 항목 수·역할·시작·명시한 끝·chapter 깊이가 입력과 같은지 확인합니다. 제목의 다른 타임코드나 구문 때문에 의미가 바뀌면 불러오기를 거부하고 원문 `raw` 사용을 안내합니다. 영상 밖 시간과 부모 구조 진단은 미리보기에서 확인합니다.
 
