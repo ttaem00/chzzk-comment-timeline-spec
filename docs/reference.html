@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>규격과 검증 · CVA-탬패드 댓글 안내</title>
+  <meta name="description" content="CVA-탬패드가 읽는 댓글 시각과 목차, 구간, 인물, 파일 형식을 예제로 설명합니다.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="assets/app-icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/search-index.js" defer></script><script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><img src="assets/app-icon.png" alt="" width="36" height="36"><span>CVA-탬패드<small>댓글 시간축 안내</small></span></a>
+    <div class="header-actions"><span class="version">편집 초안 0.4</span><button class="search-open" type="button" hidden>문서 검색 <kbd>/</kbd></button><a href="https://ttaem.com/brand/ttaempad">제품 소개 <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <div class="site-layout">
+    <aside class="sidebar"><details class="nav-drawer" open><summary>문서 목차</summary><nav aria-label="문서"><p class="nav-group">시작하기</p>
+<a href="index.html">빠른 시작</a>
+<a href="formats.html">지원 형태 한눈에</a>
+<p class="nav-group">작성과 읽기</p>
+<a href="existing.html">기존 댓글 읽기</a>
+<a href="ranges.html">구간과 강조</a>
+<a href="people.html">인물과 합방</a>
+<p class="nav-group">더 알아보기</p>
+<a href="files.html">파일 가져오기</a>
+<a href="limits.html">한계와 문제 해결</a>
+<a href="reference.html" aria-current="page">규격과 검증</a></nav><div class="sidebar-foot"><span>지원 기준 0.3.23 후보</span><a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec">공개 문서 저장소 ↗</a></div></details></aside>
+    <main id="main" tabindex="-1"><p class="eyebrow">CVA-TTAEMPAD / COMMENT GUIDE</p><article><h1 id="규격과-검증">규격과 검증</h1>
+<p>다음은 구현자와 고급 사용자를 위한 의미 계약입니다. 예제로 시작하려면 <a href="formats.html">지원 형태</a>를 먼저 읽으세요.</p>
+<h2 id="검증-범위">검증 범위</h2>
+<p>공개 편집 초안 0.4는 CVA-탬패드 0.3.23 후보를 설명합니다. 문서 정적 검사와 합성 fixture 대조, 실제 제품 사용성, 웹사이트 사용성을 구별합니다. 구체적인 commit·파일 해시·실행 결과는 <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/VALIDATION.md">검증 기록</a>에 남깁니다. 후보 및 이전 검증을 설치본 전체 성공으로 바꾸어 주장하지 않습니다.</p>
+<p>제품 parser를 공개 배포하거나 이 사이트에서 댓글을 해석하지 않습니다. 공개 예제는 합성 자료입니다. 타 도구 상호운용성·공식 플랫폼 표준·댓글 게시 성공은 별도 확인 대상입니다.</p>
+<p>작성 기준: 2026-10-03, 소비자 CVA-탬패드 0.3.23 후보, 구현 형식 식별자 <code>comment_preview.v2</code>. 문서 버전과 구현 출력 schema는 별개입니다. 확정된 국제/플랫폼 표준이나 전체 변환 기본값을 의미하지 않습니다. 후보의 실제 검증 범위는 <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/VALIDATION.md">검증 기록</a>을 따릅니다.</p>
+<h2 id="시간과-항목">시간과 항목</h2>
+<p>시간은 원본 VOD의 경과시간입니다. <code>MM:SS</code>와 <code>H:MM:SS</code>를 사용하며 초는 00–59, 시:분:초의 분도 00–59입니다. 분:초의 분은 59를 넘을 수 있습니다. <code>60:00</code>은 1시간이고 <code>27:01:02</code>도 유효합니다. 날짜·URL·댓글 ID의 숫자를 무차별로 시간으로 바꾸면 안 됩니다.</p>
+<p>권고 기본 입력은 <code>- 02:35 설명</code>입니다. 종료가 없는 point는 <strong>순간</strong>이며 다음 point까지의 범위를 만들지 않습니다. 구간은 <code>[start,end)</code>이고 <code>end &gt; start</code>여야 합니다. 시작과 끝이 같은 구간, 역순, 영상 밖 시각은 진단 대상입니다. 단순한 숫자 나열이나 같은 시각의 반복을 하나의 항목으로 합치지 않습니다.</p>
+<h2 id="제목-깊이-d1-d6와-부모">제목 깊이 D1–D6와 부모</h2>
+<p><code>#</code>에서 <code>######</code>까지 여섯 단계의 제목 구간을 지원합니다. D3 아래 D4, D4 아래 D5, D5 아래 D6처럼 바로 위 단계가 있어야 시간 부모를 확정합니다. 예를 들어:</p>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code># 00:00 ~ 20:00 게임
+## 01:00 ~ 19:00 첫 세션
+### 02:00 ~ 18:00 첫 판
+#### 03:00 ~ 17:00 준비
+##### 04:00 ~ 16:00 팀 계획
+###### 05:00 ~ 15:00 마지막 확인
+- 06:00 ⭐ 출발</code></pre></div>
+<p>point는 같은 문서 안에서 가장 가까운 유효한 제목 부모를 가집니다. 화면은 D1–D6의 부모 맥락과 원문을 유지해야 합니다. 깊이를 건너뛴 제목은 누락 부모 진단을 남깁니다. 호환 입력 경로에서 해당 시각을 순간으로 복구할 수 있어도 누락된 시간 구간을 발명하지 않습니다.</p>
+<p>시작만 있는 제목의 자동 종료는 다음 같은 단계 또는 상위 제목의 시작, 부모의 종료, 마지막의 영상 종료 중 확인 가능한 가장 이른 경계입니다. 영상 길이가 없거나 본문이 부분 수집됐거나 구조 오류가 있으면 끝이 미확정일 수 있습니다. 명시 종료는 자동 계산으로 덮어쓰지 않습니다. 부분 본문에서 연속 행을 확인한 경우에만 확인된 다음 경계를 사용할 수 있고, 마지막 종료는 여전히 모를 수 있습니다.</p>
+<h2 id="자연-목차의-구조-추론">자연 목차의 구조 추론</h2>
+<p>명시 <code>#</code>–<code>######</code> 문법과 기존 평면 댓글의 Point 의미는 유지합니다. 다음은 이미 작성된 댓글을 가져오는 <strong>추론 입력 규칙</strong>이며, 작성자에게 새 문법을 요구하는 출력 규칙이 아닙니다. 주제와 하위 목록·분류 제목 등의 구조 근거가 있는 문서에서만 자동 계층을 만듭니다.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">자연 입력 문맥</th><th scope="col">자동 구조</th></tr></thead><tbody><tr><td>최상위 <code>시간 제목</code> + 이어지는 하위 <code>- 시간 제목</code></td><td>최상위 D1, 목록 D2; 같은 자연 목차의 자식 없는 최상위 행도 D1</td></tr><tr><td>장면 뒤 <code>--시간 사건</code>, <code>-- 시간 사건</code>, <code>└ 시간 사건</code></td><td>직전 장면 안의 Point; 날짜/들여쓰기만으로 시간 부모 생성 금지</td></tr><tr><td>`🎮 게임명</td><td>시간`</td><td>명확한 분류 D1, 뒤의 평문 시각 행 D2</td></tr><tr><td><code>💬 저챗</code>, <code>스타 합방 시작</code>, 멤버 괄호가 있는 게임 제목+일치하는 첫 목록 장면</td><td>다음 유효 타임코드를 시작 anchor로 삼는 D1 후보; 제목행과 anchor행 출처 모두 보존</td></tr><tr><td>제목 아래 평문 <code>시간 설명</code>과 그 아래 <code>└</code></td><td>평문 D2, 트리 행 Point</td></tr><tr><td><code>--시작 - 끝 설명</code></td><td>명시 범위를 보존하는 메모; 끝 없는 Point로 축소하거나 Highlight로 승격 금지</td></tr><tr><td>구조 근거 없는 시각 목록/제목 없는 책갈피</td><td>기존 Point, 종료를 만들지 않음</td></tr></tbody></table></div>
+<p>예: <code>diffiCULT (가상A, 가상B)</code> 다음 <code>- 06:50:01 게임 설명</code>이 오면 제목 D1과 장면 D2는 같은 시작을 가질 수 있습니다. 시간 없는 제목은 첫 자식의 시각을 사용했다는 사실을 표시합니다. 다음 D2 시작과 상위 구간 끝을 확인해 자동 끝을 계산하며 명시 종료는 우선합니다.</p>
+<p>다음 조건은 단순한 기호 개수보다 우선합니다.</p>
+<ul><li>빈줄·날짜·URL·일반 문장만으로 주제나 시각을 만들지 않습니다. 문서별 구조와 부모를 분리합니다.</li><li>시간 없는 제목은 분류 기호·합방 시작 표현, 또는 멤버 괄호와 첫 목록 장면의 게임명 일치/게임 표현처럼</li></ul>
+<p>지원하는 구조 근거가 필요합니다. 그 밖의 자유 제목은 원문으로 보존하며 구간을 보장하지 않습니다.</p>
+<ul><li>붙여넣기의 <code>\--</code> 목록 escape와 <code>&amp;#x20;</code>/<code>&amp;#32;</code>/<code>&amp;nbsp;</code> 공백은 구조 판정용으로만 정규화합니다.</li></ul>
+<p>원문은 그대로 남기며 임의 HTML·entity를 실행하거나 일반 문장·URL의 시각을 추출하지 않습니다.</p>
+<ul><li>같은 시각의 다른 원문 행은 남깁니다. 0초 길이의 구간을 만들거나 시간으로 중복 제거하지 않습니다.</li></ul>
+<p>부모/순서가 불명확하면 진단 또는 순간으로 보존합니다.</p>
+<ul><li>잘린 본문·누락/오류 경계에서는 종료가 미확정일 수 있습니다. 영상 길이만으로 확인되지 않은</li></ul>
+<p>마지막 이야기를 완성했다고 주장하지 않습니다.</p>
+<ul><li><code>3판⭐ (역할)</code>처럼 제목 내부의 ⭐도 작성자 강조입니다. 범위·재미 점수·컷 승인과 무관합니다.</li><li><code>(w. 이름)</code>, 명단 괄호와 이름 속 별칭 괄호는 원문/검색 후보입니다. 참여 전 구간이나 채널 신원을</li></ul>
+<p>자동 확정하지 않습니다.</p>
+<ul><li>미리보기와 시간축은 명시 구조와 추론 구조를 구분하고 원문·시각·부모 맥락을 제공합니다.</li></ul>
+<p>정상 불러오기 동작으로 채택하며, 이전 채택본·수동 선택을 parser 갱신으로 덮어쓰지 않습니다.</p>
+<h2 id="역할과-강조">역할과 강조</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">입력</th><th scope="col">의미</th></tr></thead><tbody><tr><td><code>- 02:35 설명</code> / <code>[P]</code> / <code>[포인트]</code></td><td>순간 point; 권고 출력에서 P는 생략 가능</td></tr><tr><td><code>[M]</code> / <code>[메모]</code></td><td>사용자 메모, 순간 또는 명시 범위</td></tr><tr><td><code>[W]</code> / <code>[볼 곳]</code> / <code>[먼저 보기]</code></td><td>먼저 볼 곳, 순간 또는 명시 범위</td></tr><tr><td><code>[H]</code> / <code>[하이라이트]</code></td><td>끝이 있는 하이라이트 범위</td></tr><tr><td><code>[H?]</code> / <code>[예상]</code></td><td>끝이 있는 예상 하이라이트, 검토 전 후보</td></tr><tr><td><code>[합방]</code></td><td>끝이 있는 합방 맥락 범위</td></tr></tbody></table></div>
+<p><code>⭐</code>, <code>★</code>와 독립된 앞/뒤 <code>BEST</code>는 작성자 강조로 읽습니다. 역할, 시간 범위, 검토 승인, 점수로 바꾸지 않습니다. 제목 내부 <code>BESTiary</code> 같은 단어는 강조가 아닙니다. 플랫폼의 BEST 배지·좋아요 수·시스템 강조는 작성자의 문자와 별개입니다.</p>
+<p>범위가 필요한 역할에 종료가 없거나 point에 범위를 붙이면 엄격 문법은 진단합니다. 기존 댓글을 읽는 호환 경로는 명시 시각을 복구하고 원문 라벨을 남길 수 있습니다. 호환 복구가 해당 잘못된 구문을 권고 문법으로 만드는 것은 아닙니다.</p>
+<h2 id="설명-떨어진-원본-구간">설명, 떨어진 원본 구간</h2>
+<p><code>설명:</code>, <code>맥락:</code>, <code>검토 상태:</code>는 직전 항목에 붙는 텍스트입니다. 검토 상태 텍스트가 도구의 승인 권한을 부여하지는 않습니다. 명시 범위 안의 떨어진 원본 구간은 다음처럼 적을 수 있습니다.</p>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code>- 02:00 ~ 08:00 [H] 두 사건
+설명: 중간의 대기는 포함하지 않습니다.
+원본 구간: 02:00 ~ 03:00; 06:00 ~ 08:00</code></pre></div>
+<p>원본 구간들은 유효하고 정렬돼 있으며 겹치지 않고 바깥 범위 안에 있어야 합니다. 03:00–06:00의 빈 구간을 재생 범위로 채우지 않습니다. 현재 주 항목의 이동 시각은 정수 초, 세부 원본 구간은 최대 밀리초 세 자리까지 읽습니다.</p>
+<h2 id="합방-멤버">합방 멤버</h2>
+<p><code>합방: 이름 A, 이름 B</code>는 직전 제목 구간 또는 <code>[합방]</code> 범위에 명단을 붙입니다. 제목 끝 <code>(합방: 이름 A, 이름 B)</code>도 읽습니다. <code>함께:</code>와 <code>참여:</code>는 기존 입력 호환 별칭이며 권고 표기는 <code>합방:</code>입니다.</p>
+<p>자식 항목은 가장 가까운 명시적 부모 명단을 이어받습니다. 새 독립 D1은 이전 D1 명단을 이어받지 않습니다. <code>합방: 없음</code>은 명시적으로 멤버가 없다는 뜻, <code>합방: 미확인</code>은 모른다는 뜻입니다. 누락도 별도 상태입니다. 중복·충돌 명단은 원문과 진단을 보존합니다. 평문 이름 후보는 확정 명단으로 승격하지 않습니다.</p>
+<p>이름은 채널 신원이나 영상 offset의 증거가 아닙니다. 구현이 공개 방송 시작 시각과 길이로 겹치는 VOD를 찾더라도 <strong>방송 기간 후보 등록</strong>과 <strong>같은 사건의 정확한 시각 정렬</strong>을 구별해야 합니다. 댓글 규격은 CHZZK ID, ttaem URL, 인증 서버를 필수 헤더로 요구하지 않습니다.</p>
+<h2 id="기존-표현-여러-시각-답글">기존 표현, 여러 시각, 답글</h2>
+<p>다음은 호환 입력이며 권고 Markdown으로 다시 쓰도록 강요하지 않습니다.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">입력</th><th scope="col">의미</th></tr></thead><tbody><tr><td><code>34:22 등장</code> / <code>등장 [ 34:22 ]</code> / <code>등장 - 34:22</code></td><td>이동 시각과 원문 표현 보존; 대괄호 시각과 소괄호 시각은 다른 규칙</td></tr><tr><td><code>54:30</code></td><td>제목 없는 순간</td></tr><tr><td><code>13:20 / 15:10 같은 장면</code></td><td>같은 행에 두 anchor, 하나의 연속 범위 아님</td></tr><tr><td><code>장면 [01:00] / [02:00]</code></td><td>anchor별 occurrence와 각 설명 보존</td></tr><tr><td><code>└ 02:00 뒤 이야기</code> / <code>ㄴ 03:00 추가 설명</code></td><td>문서 표식과 순간; 제목 부모 범위 발명 금지</td></tr><tr><td><code># 제목 없는 시간</code>처럼 해석 불가능한 행</td><td>원문 block 또는 진단, 0초 항목을 만들지 않음</td></tr><tr><td>동일 시각의 다른 행·다른 댓글·선택한 답글</td><td>각 문서/행/anchor 신원 유지, 시간으로 dedupe 금지</td></tr></tbody></table></div>
+<p>답글은 사용자가 선택한 별도 문서입니다. parentCommentId 자체는 원글 관계이며 수정·승인 권한이 아닙니다. 사용자가 선택한 같은 작성자 답글을 이어 읽을 때에는 유효한 시각·명시 구조·원문 출처를 확인해 맥락을 연결할 수 있으며, 다른 작성자나 선택하지 않은 답글을 자동 시간 부모로 삼지 않습니다. 화면은 관련 원글의 시간 오차 안내와 원문 맥락도 보존할 수 있어야 합니다. 댓글 자동 수집/게시 권한은 이 규격에 포함되지 않습니다.</p>
+<h2 id="불명확한-입력과-긴-댓글">불명확한 입력과 긴 댓글</h2>
+<p>모르는 태그, 시간 없는 안내, 일부 잘못된 시각은 원문·문서·행·진단과 함께 보존합니다. 한 행의 잘못된 시간 때문에 나머지 유효 anchor를 지우지 않습니다. 전체 구조를 확정할 근거가 없으면 순간과 미확정 종료를 분명히 표시합니다. HTML·스크립트·원격 이미지·댓글 속 명령을 실행하지 않습니다.</p>
+<p>긴 댓글은 항목과 설명을 통째로 유지하며 필요한 부모 제목·명단·맥락을 각 부분에 반복합니다. 자동 제목 종료는 분할 전에 명시 종료로 고정합니다. 반복한 부모 맥락과 실제 원본 항목을 구분해 항목을 중복 채택하지 않아야 합니다. 한 항목과 부모 맥락이 한 부분의 한도를 넘거나 진단/알 수 없는 종료가 있으면 분할을 실패로 알려야 합니다. 자동 잘라내기나 의미 손실을 성공으로 표시하지 않습니다.</p>
+<p>플랫폼 댓글 한도는 adapter가 실제 UI/API의 제한을 확인해 제공합니다. 제품 분할 함수의 기본값 5,000자는 <strong>CHZZK의 보장된 공식 최대 길이가 아닙니다</strong>. 코드의 JavaScript 문자열 길이(UTF-16 code unit), 입력 미리보기 상한 250,000, 분할 인수 100–250,000도 플랫폼 게시 한도와 별개입니다.</p>
+<h2 id="관련-인물과-교환-입력">관련 인물과 교환 입력</h2>
+<p>문서별 가명 연결, with 표기와 명시 참여자의 구별은 <a href="people.html">관련 인물 계약</a>을 따릅니다. 다른 도구의 <code>chzzk.comment-timeline</code> 버전 1 입력은 <a href="files.html">교환 형식</a>을 따릅니다. 기존 평문 원문·시간·역할·부모 의미와 채택 snapshot 보존 규칙은 유지합니다.</p>
+<p>참가자 검색을 위한 한 줄 입력, <code>chzzk.participant-roster</code> 버전 1과 기존 Syncher 합방 자료는 <a href="files.html#참가자와-역할-이름-가져오기">참가자 가져오기</a>를 따릅니다. 이름·역할·참여 구간·채널·VOD 시각을 하나의 신원 사실로 합치지 않습니다.</p>
+<h2 id="강조된-시각과-제목-아래-중첩-목록">강조된 시각과 제목 아래 중첩 목록</h2>
+<p><code>**00:03:21**</code>, <code>__00:03:21__</code> 및 대응되는 한 겹 강조 기호는 시각을 읽을 때만 벗깁니다. 전체 원문과 강조 표시를 삭제하거나 HTML을 실행하지 않습니다. 짧은 제목 아래 단일 <code>-</code> 시각 행이 두 개 이상이고 <code>--</code>/<code>└</code>/<code>ㄴ</code> 하위 시각 행이 있으면, 그 제목을 다음 실제 시각에 연결한 D1, 단일 목록을 D2, 하위 순간을 Point로 추론할 수 있습니다. 특정 게임·방송인 이름 사전을 조건으로 쓰지 않습니다. 명시 역할과 엄격 제목 문법을 우선하며, 근거가 부족한 평평한 목록은 Point를 유지합니다. 추론 근거와 원문/시각 anchor 행을 함께 남겨 수정 가능하게 합니다.</p>
+<p>같은 시각, 역순 시각, 작성자 별 표시는 항목 신원이나 계층과 별개입니다. 시각만으로 합치거나 역순 항목을 버리지 않습니다. 부분 원문·알 수 없는 영상 길이·불명확한 경계에서는 D1/D2의 끝을 미확정으로 둡니다. <a href="examples/nested-emphasis.json">강조된 중첩 목차 예제</a>는 제목·강조·역순·부분 원문을 함께 대조합니다.</p>
+<h2 id="0-4의-명확한-구조와-보수적-확인">0.4의 명확한 구조와 보수적 확인</h2>
+<p>명확한 상대 들여쓰기는 전체 시각 목록의 공통여백을 뺀 뒤 판정합니다. 두 칸 이상, 탭, 전각 공백 등 지원하는 명확한 증가에서 주제 D1 아래 장면 D2를 읽고, 그보다 깊은 시각 행은 Point로 유지합니다. 전체 목록의 동일 여백·단일 우연 공백·시간 없는 일반 문장은 부모 구간의 근거가 아닙니다. 이 구조는 추론 근거·원문·anchor 행을 보존하며 명시 제목/역할 규칙보다 우선하지 않습니다.</p>
+<p>단독 <code>■</code>와 단독 Markdown 구분선은 독립 목록 경계입니다. 각 경계에서 앞 주제·부모·명단 맥락을 분리하고 새 목록을 판정합니다. 일반 문장 속 <code>■</code>와 빈줄은 확정 경계가 아닙니다. 별도로 모은 곡 목록·장면 색인에 앞 목록의 계층을 강제로 붙이지 않습니다. 경계 전 마지막 자동 제목 끝을 뒤 색인의 역순 시각이나 영상 길이로 무조건 완성하지 않습니다.</p>
+<p><code>01:23 시작 (02:55)</code>는 앞 anchor 01:23과 전체 원문을 보존하고 recoverable <code>parenthesized_time_review</code> 안내를 남깁니다. 괄호 속 단독 시각은 참고·정정·실제 시작 등의 의도가 모호하므로 자동 두 번째 anchor나 종료로 바꾸지 않습니다. 여러 순간은 <code>01:23 / 02:55 시작</code>, 범위는 <code>01:23 ~ 02:55 [메모] 시작 구간</code>처럼 명시할 수 있습니다. 대괄호 시각의 호환 규칙을 소괄호 전체로 확장하지 않습니다.</p>
+<p>지나치게 큰 수, 소수 주 시각, 잘못된 자리수·분·초 등은 유효 anchor로 확정하지 않습니다. 오류 행의 원문·진단과 유효한 이웃 항목을 보존합니다. 전각 숫자·임의 분류·자유문장·복잡한 Markdown 전체의 지원을 추가하지 않습니다. <a href="examples/mixed-formats.json">혼합 형상 합성 예제</a>는 실제 사용자 댓글을 포함하지 않습니다.</p></article><nav class="page-turn" aria-label="이전 다음 문서"><a href="limits.html"><small>이전 문서</small><span>한계와 문제 해결 ←</span></a></nav><footer>원문과 의도를 보존하며, 확인한 장면을 시간축에 담습니다.<br><a href="source/reference.md">이 문서의 Markdown 원본</a> · <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/LICENSE">MIT 라이선스</a></footer></main>
+    <aside class="toc"><nav aria-label="현재 문서 목차"><p>이 문서에서</p><a class="toc-depth-2" href="#검증-범위">검증 범위</a><a class="toc-depth-2" href="#시간과-항목">시간과 항목</a><a class="toc-depth-2" href="#제목-깊이-d1-d6와-부모">제목 깊이 D1–D6와 부모</a><a class="toc-depth-2" href="#자연-목차의-구조-추론">자연 목차의 구조 추론</a><a class="toc-depth-2" href="#역할과-강조">역할과 강조</a><a class="toc-depth-2" href="#설명-떨어진-원본-구간">설명, 떨어진 원본 구간</a><a class="toc-depth-2" href="#합방-멤버">합방 멤버</a><a class="toc-depth-2" href="#기존-표현-여러-시각-답글">기존 표현, 여러 시각, 답글</a><a class="toc-depth-2" href="#불명확한-입력과-긴-댓글">불명확한 입력과 긴 댓글</a><a class="toc-depth-2" href="#관련-인물과-교환-입력">관련 인물과 교환 입력</a><a class="toc-depth-2" href="#강조된-시각과-제목-아래-중첩-목록">강조된 시각과 제목 아래 중첩 목록</a><a class="toc-depth-2" href="#0-4의-명확한-구조와-보수적-확인">0.4의 명확한 구조와 보수적 확인</a></nav></aside>
+  </div>
+  <dialog id="search-dialog" aria-labelledby="search-title"><form method="dialog" class="search-head"><h2 id="search-title">문서 검색</h2><button aria-label="검색 닫기">닫기</button></form><label for="search-input">찾을 내용</label><input id="search-input" type="search" placeholder="예: 들여쓰기, 괄호, 합방" autocomplete="off"><p id="search-status" role="status">단어를 입력하면 문서를 찾습니다.</p><div id="search-results"></div></dialog>
+  <noscript><p class="no-script">본문과 목차는 그대로 읽을 수 있습니다. 검색은 브라우저의 페이지 찾기(Ctrl+F)를 사용하세요.</p></noscript>
+</body></html>

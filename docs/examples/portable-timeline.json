@@ -1,0 +1,15 @@
+{
+  "format": "chzzk.comment-timeline",
+  "version": 1,
+  "documents": [
+    {
+      "name": "가상 게임 목차",
+      "aliases": [{"alias": "역할A", "streamer": "가상 방송인 A"}],
+      "entries": [
+        {"role": "chapter", "depth": 1, "startSec": 0, "endSec": 60, "title": "첫 게임"},
+        {"startSec": 10, "title": "첫 만남 (w. 역할A)"},
+        {"role": "highlight", "startSec": 20, "endSec": 25, "title": "결정적인 순간"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "kind": "public-safe-synthetic-fixture-candidate",
+  "cases": [
+    {
+      "id": "time-only-bookmark",
+      "documents": [
+        {
+          "name": "예시 댓글",
+          "raw": "54:30"
+        }
+      ],
+      "expected": {
+        "starts": [
+          3270
+        ],
+        "ends": [
+          null
+        ],
+        "diagnostics": [],
+        "untimed": []
+      }
+    },
+    {
+      "id": "trailing-and-multiple-times",
+      "documents": [
+        {
+          "name": "예시 댓글",
+          "raw": "첫 등장 [ 34:22 ]\n두 장면 - 13:20 / 15:10"
+        }
+      ],
+      "expected": {
+        "starts": [
+          2062,
+          800,
+          910
+        ],
+        "ends": [
+          null,
+          null,
+          null
+        ],
+        "diagnostics": [],
+        "untimed": []
+      }
+    },
+    {
+      "id": "explicit-interval",
+      "documents": [
+        {
+          "name": "예시 댓글",
+          "raw": "마이크 점검 [ 1:09:49 - 2:24:46 ]"
+        }
+      ],
+      "expected": {
+        "starts": [
+          4189
+        ],
+        "ends": [
+          8686
+        ],
+        "diagnostics": [],
+        "untimed": []
+      }
+    },
+    {
+      "id": "untimed-caution",
+      "documents": [
+        {
+          "name": "공연 예시",
+          "commentId": "example-parent",
+          "raw": "[공연 차례]\n{영상 시각은 ±20초 차이가 있을 수 있습니다}\n9:05:29 합주 시작"
+        }
+      ],
+      "expected": {
+        "starts": [
+          32729
+        ],
+        "ends": [
+          null
+        ],
+        "diagnostics": [],
+        "untimed": [
+          "[공연 차례]",
+          "{영상 시각은 ±20초 차이가 있을 수 있습니다}"
+        ]
+      }
+    },
+    {
+      "id": "selected-parent-and-reply",
+      "documents": [
+        {
+          "name": "원글",
+          "author": "작성자 가",
+          "commentId": "example-parent",
+          "raw": "시간에 오차가 있을 수 있습니다\n3:19:50 첫 표기"
+        },
+        {
+          "name": "답글",
+          "author": "작성자 나",
+          "commentId": "example-reply",
+          "parentCommentId": "example-parent",
+          "raw": "작성자 가3:19:50 다시 확인한 이름"
+        }
+      ],
+      "expected": {
+        "starts": [
+          11990,
+          11990
+        ],
+        "ends": [
+          null,
+          null
+        ],
+        "diagnostics": [],
+        "untimed": [
+          "시간에 오차가 있을 수 있습니다"
+        ]
+      }
+    },
+    {
+      "id": "partial-unknown-time",
+      "documents": [
+        {
+          "name": "예시 댓글",
+          "raw": "12:99 확인이 필요한 시각\n2:35 정상 장면"
+        }
+      ],
+      "expected": {
+        "starts": [
+          155
+        ],
+        "ends": [
+          null
+        ],
+        "diagnostics": [
+          "invalid_time"
+        ],
+        "untimed": [
+          "12:99 확인이 필요한 시각"
+        ]
+      }
+    },
+    {
+      "id": "d1-d6-parent-context",
+      "documents": [
+        {
+          "raw": "# 00:00 ~ 20:00 게임\n합방: 가상A, 가상B\n## 01:00 ~ 19:00 세션\n### 02:00 ~ 18:00 판\n#### 03:00 ~ 17:00 준비\n##### 04:00 ~ 16:00 계획\n###### 05:00 ~ 15:00 확인\n- 06:00 ⭐ 출발",
+          "name": "합성 깊이 예제"
+        }
+      ],
+      "expected": {
+        "diagnostics": [],
+        "starts": [
+          0,
+          60,
+          120,
+          180,
+          240,
+          300,
+          360
+        ],
+        "ends": [
+          1200,
+          1140,
+          1080,
+          1020,
+          960,
+          900,
+          null
+        ],
+        "untimed": []
+      }
+    },
+    {
+      "id": "repeated-time-distinct-items",
+      "documents": [
+        {
+          "raw": "- 01:00 첫 설명\n- 01:00 다른 설명\n- 02:00 / 03:00 같은 사건",
+          "name": "합성 반복 예제"
+        }
+      ],
+      "expected": {
+        "diagnostics": [],
+        "starts": [
+          60,
+          60,
+          120,
+          180
+        ],
+        "ends": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "untimed": []
+      }
+    }
+  ]
+}

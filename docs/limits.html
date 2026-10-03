@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>한계와 문제 해결 · CVA-탬패드 댓글 안내</title>
+  <meta name="description" content="CVA-탬패드가 읽는 댓글 시각과 목차, 구간, 인물, 파일 형식을 예제로 설명합니다.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="assets/app-icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/search-index.js" defer></script><script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><img src="assets/app-icon.png" alt="" width="36" height="36"><span>CVA-탬패드<small>댓글 시간축 안내</small></span></a>
+    <div class="header-actions"><span class="version">편집 초안 0.4</span><button class="search-open" type="button" hidden>문서 검색 <kbd>/</kbd></button><a href="https://ttaem.com/brand/ttaempad">제품 소개 <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <div class="site-layout">
+    <aside class="sidebar"><details class="nav-drawer" open><summary>문서 목차</summary><nav aria-label="문서"><p class="nav-group">시작하기</p>
+<a href="index.html">빠른 시작</a>
+<a href="formats.html">지원 형태 한눈에</a>
+<p class="nav-group">작성과 읽기</p>
+<a href="existing.html">기존 댓글 읽기</a>
+<a href="ranges.html">구간과 강조</a>
+<a href="people.html">인물과 합방</a>
+<p class="nav-group">더 알아보기</p>
+<a href="files.html">파일 가져오기</a>
+<a href="limits.html" aria-current="page">한계와 문제 해결</a>
+<a href="reference.html">규격과 검증</a></nav><div class="sidebar-foot"><span>지원 기준 0.3.23 후보</span><a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec">공개 문서 저장소 ↗</a></div></details></aside>
+    <main id="main" tabindex="-1"><p class="eyebrow">CVA-TTAEMPAD / COMMENT GUIDE</p><article><h1 id="한계와-문제-해결">한계와 문제 해결</h1>
+<p>모호한 입력은 원문을 남기고, 정상 시각은 가능한 한 보존합니다. 다만 원문 보존을 모든 표현의 자동 이해와 혼동하지 않습니다.</p>
+<h2 id="확인-안내가-보일-때">확인 안내가 보일 때</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">상황</th><th scope="col">읽는 방식</th><th scope="col">확인할 일</th></tr></thead><tbody><tr><td><code>01:23 시작 (02:55)</code></td><td>앞 시각 보존, 괄호 시각 안내</td><td>두 순간인지 범위인지 확인</td></tr><tr><td><code>12:99 오류</code> 뒤 정상 행</td><td>오류 행 원문·진단, 정상 이웃 보존</td><td>초가 00–59인지 확인</td></tr><tr><td>지나치게 큰 수·소수·잘못된 자리수 시각</td><td>해당 잘못된 시각을 확정하지 않음</td><td>주 항목을 정수 <code>MM:SS</code> 또는 <code>H:MM:SS</code>로 작성</td></tr><tr><td>깊이를 건너뛴 제목</td><td>부모 누락 진단</td><td>위 단계 제목 확인</td></tr><tr><td>끝 없는 하이라이트</td><td>기존 원문·시각 보존, 범위 보장 없음</td><td>명시 종료 또는 순간 역할 사용</td></tr><tr><td>부분 댓글</td><td>끝 미확정 가능</td><td>완전한 본문인지 확인</td></tr><tr><td>같은 시각·역순 시각</td><td>별개 항목 보존</td><td>원문 설명과 순서를 확인</td></tr><tr><td>모르는 태그·일반 안내</td><td>원문 또는 진단</td><td>지원 형태 표와 대조</td></tr></tbody></table></div>
+<p>한 행의 오류 때문에 나머지 정상 이동 지점을 없애지 않습니다. 원문이 시간축 항목으로 읽히지 않았다면 미리보기의 원문·진단을 확인하세요.</p>
+<h2 id="보장하지-않는-것">보장하지 않는 것</h2>
+<ul><li>자유문장 어디에든 들어 있는 숫자를 무차별로 시각으로 바꾸지 않습니다.</li><li>날짜·URL·댓글 ID를 시각으로 해석하지 않습니다.</li><li>괄호 시각을 자동 이동 지점·끝 시각·정정 시각으로 확정하지 않습니다.</li><li>전각 숫자, 임의 분류 제목, 복잡한 Markdown·HTML의 모든 변형을 지원하지 않습니다.</li><li>들여쓰기의 모양만으로 참여 사실·장면 의미·여섯 단계 구간을 만들지 않습니다.</li><li>이름이 같다는 이유로 채널 신원·전 구간 참여·실제 사건 싱크를 확정하지 않습니다.</li><li>자동 댓글 게시, 답글 전체 자동 수집, 기존 채택본 자동 변경을 수행하지 않습니다.</li></ul>
+<h2 id="짧고-명확하게-작성하는-방법">짧고 명확하게 작성하는 방법</h2>
+<ol><li>시각은 줄 앞에 쓰고 설명을 붙입니다.</li><li>여러 순간은 <code>/</code>, 범위는 <code>~</code>와 역할을 사용합니다.</li><li>주제는 <code>#</code>, 하위 주제는 <code>##</code>로 명시하면 추론을 줄일 수 있습니다.</li><li>별도 색인은 단독 <code>■</code> 또는 구분선 뒤에 둡니다.</li><li>가져온 뒤 미리보기의 원문·시각·구조·안내를 확인합니다.</li></ol>
+<p>지원하지 않는 사례를 제보할 때는 개인정보를 제거한 최소 예제, 기대 결과, 실제 결과를 함께 적어 주세요. <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/CONTRIBUTING.md">기여 안내</a>를 참고할 수 있습니다.</p></article><nav class="page-turn" aria-label="이전 다음 문서"><a href="files.html"><small>이전 문서</small><span>파일 가져오기 ←</span></a><a href="reference.html"><small>다음 문서</small><span>규격과 검증 →</span></a></nav><footer>원문과 의도를 보존하며, 확인한 장면을 시간축에 담습니다.<br><a href="source/limits.md">이 문서의 Markdown 원본</a> · <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/LICENSE">MIT 라이선스</a></footer></main>
+    <aside class="toc"><nav aria-label="현재 문서 목차"><p>이 문서에서</p><a class="toc-depth-2" href="#확인-안내가-보일-때">확인 안내가 보일 때</a><a class="toc-depth-2" href="#보장하지-않는-것">보장하지 않는 것</a><a class="toc-depth-2" href="#짧고-명확하게-작성하는-방법">짧고 명확하게 작성하는 방법</a></nav></aside>
+  </div>
+  <dialog id="search-dialog" aria-labelledby="search-title"><form method="dialog" class="search-head"><h2 id="search-title">문서 검색</h2><button aria-label="검색 닫기">닫기</button></form><label for="search-input">찾을 내용</label><input id="search-input" type="search" placeholder="예: 들여쓰기, 괄호, 합방" autocomplete="off"><p id="search-status" role="status">단어를 입력하면 문서를 찾습니다.</p><div id="search-results"></div></dialog>
+  <noscript><p class="no-script">본문과 목차는 그대로 읽을 수 있습니다. 검색은 브라우저의 페이지 찾기(Ctrl+F)를 사용하세요.</p></noscript>
+</body></html>

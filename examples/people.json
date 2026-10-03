@@ -1,0 +1,77 @@
+{
+  "cases": [
+    {
+      "id": "with-role",
+      "documents": [
+        {
+          "raw": "00:10 사건 (w. 역할A(가상 방송인 A), 가상 방송인 B) 참고 (설명)"
+        }
+      ],
+      "expectedNames": [
+        [
+          "가상 방송인 A",
+          "가상 방송인 B"
+        ]
+      ]
+    },
+    {
+      "id": "with-slash",
+      "documents": [
+        {
+          "raw": "00:10 사건 (w/ 가상 방송인 A)"
+        }
+      ],
+      "expectedNames": [
+        [
+          "가상 방송인 A"
+        ]
+      ]
+    },
+    {
+      "id": "with-word",
+      "documents": [
+        {
+          "raw": "00:10 사건 (WITH 가상 방송인 A)"
+        }
+      ],
+      "expectedNames": [
+        [
+          "가상 방송인 A"
+        ]
+      ]
+    },
+    {
+      "id": "alias-scope",
+      "documents": [
+        {
+          "raw": "별칭: 역할 = 가상 방송인 A\n00:10 사건 (w. 역할)"
+        },
+        {
+          "raw": "별칭: 역할 = 가상 방송인 B\n00:20 사건 (w. 역할)"
+        }
+      ],
+      "expectedNames": [
+        [
+          "가상 방송인 A"
+        ],
+        [
+          "가상 방송인 B"
+        ]
+      ]
+    },
+    {
+      "id": "conflict",
+      "documents": [
+        {
+          "raw": "별칭: 역할 = 가상 방송인 A\n별칭: 역할 = 가상 방송인 B\n00:10 사건 (w. 역할)"
+        }
+      ],
+      "expectedNames": [
+        [
+          "역할"
+        ]
+      ],
+      "conflict": true
+    }
+  ]
+}
