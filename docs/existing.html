@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>기존 댓글 읽기 · CVA-탬패드 댓글 안내</title>
+  <meta name="description" content="CVA-탬패드가 읽는 댓글 시각과 목차, 구간, 인물, 파일 형식을 예제로 설명합니다.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="assets/app-icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/search-index.js" defer></script><script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><img src="assets/app-icon.png" alt="" width="36" height="36"><span>CVA-탬패드<small>댓글 시간축 안내</small></span></a>
+    <div class="header-actions"><span class="version">편집 초안 0.4</span><button class="search-open" type="button" hidden>문서 검색 <kbd>/</kbd></button><a href="https://ttaem.com/brand/ttaempad">제품 소개 <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <div class="site-layout">
+    <aside class="sidebar"><details class="nav-drawer" open><summary>문서 목차</summary><nav aria-label="문서"><p class="nav-group">시작하기</p>
+<a href="index.html">빠른 시작</a>
+<a href="formats.html">지원 형태 한눈에</a>
+<p class="nav-group">작성과 읽기</p>
+<a href="existing.html" aria-current="page">기존 댓글 읽기</a>
+<a href="ranges.html">구간과 강조</a>
+<a href="people.html">인물과 합방</a>
+<p class="nav-group">더 알아보기</p>
+<a href="files.html">파일 가져오기</a>
+<a href="limits.html">한계와 문제 해결</a>
+<a href="reference.html">규격과 검증</a></nav><div class="sidebar-foot"><span>지원 기준 0.3.23 후보</span><a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec">공개 문서 저장소 ↗</a></div></details></aside>
+    <main id="main" tabindex="-1"><p class="eyebrow">CVA-TTAEMPAD / COMMENT GUIDE</p><article><h1 id="기존-댓글-읽기">기존 댓글 읽기</h1>
+<p>작성자가 사용한 목록 구조를 읽되, 구조가 모호하면 원문과 이동 시각을 먼저 보존합니다. 특정 게임·곡·인물 이름을 사전으로 외워 계층을 만드는 방식은 사용하지 않습니다.</p>
+<h2 id="자연-목차">자연 목차</h2>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code>01:00 준비
+03:00 첫 게임
+- 04:00 첫 판
+--04:30 ⭐ 뜻밖의 사건
+- 05:00 두 번째 판
+06:00 마무리</code></pre></div>
+<p>최상위 행은 <strong>주제 D1</strong>, 단일 목록은 <strong>장면 D2</strong>, 이중 목록은 <strong>순간 Point</strong>로 읽습니다. 명시 <code>#</code> 문법에서의 <code>-</code>는 계속 순간입니다. 구조 없는 단일 목록도 순간입니다.</p>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code>💬 저챗
+01:00 등장
+02:00 이야기
+🎮 가상 게임 | 03:00
+03:20 입장
+04:00 팀 경기
+└ 04:30 경기 시작</code></pre></div>
+<p>시간 없는 <code>💬 저챗</code>은 다음 실제 시각 01:00을 시작으로 사용합니다. 분류 안의 행은 장면, 트리 행은 순간입니다. 0초를 만들어 넣지 않습니다. 자유 제목은 모두 분류로 승격하지 않습니다. 지원하는 분류 표식이나 반복된 중첩 목록처럼 구조 근거가 있어야 합니다.</p>
+<h2 id="명확한-상대-들여쓰기">명확한 상대 들여쓰기</h2>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code>01:00 첫 게임
+  02:00 첫 판
+    02:10 작은 사건
+03:00 다음 이야기</code></pre></div>
+<p>공통으로 붙은 여백을 제외한 뒤, 두 칸 이상·탭·전각 공백처럼 <strong>분명하게 안쪽으로 들어간 시각 행</strong>을 읽습니다. 주제 D1 아래 첫 안쪽 행은 장면 D2, 더 깊은 행은 순간입니다. 들여쓰기만으로 여섯 단계 구간을 발명하지 않습니다.</p>
+<p>전체 목록을 똑같이 들여쓴 경우에는 단순 여백입니다. 한 칸의 우연한 공백이나 시간 없는 일반 문장으로 부모를 만들지 않습니다. 자동 구조는 미리보기에서 확인하세요.</p>
+<h2 id="별도로-모은-목록">별도로 모은 목록</h2>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code>01:00 준비
+03:00 게임
+  04:00 첫 판
+08:00 마무리
+
+■
+02:30 가상 가수 - 가상 곡 A
+07:20 가상 가수 - 가상 곡 B</code></pre></div>
+<p>단독 <code>■</code>는 새 목록의 경계입니다. 뒤의 음악 목록은 앞 게임의 하위 구간으로 붙이지 않고 <strong>독립된 순간</strong>으로 읽습니다. <code>---</code>, <code>***</code>, <code>___</code> 같은 단독 구분선도 경계로 읽습니다. 일반 문장 속 <code>■</code>는 경계가 아닙니다.</p>
+<p>곡·공연 목록, 별도로 모은 중요한 순간, 다시 본 장면 색인처럼 시각이 앞뒤로 섞일 수 있습니다. 시간 순으로 되돌아간다는 이유만으로 삭제하지 않습니다. 빈줄은 가독성을 위한 여백이며 독립 목록의 확정 경계가 아닙니다.</p>
+<h2 id="괄호-속-시각은-확인해-주세요">괄호 속 시각은 확인해 주세요</h2>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code>01:23 시작 (02:55)</code></pre></div>
+<p>01:23은 이동 지점으로 읽고, <code>(02:55)</code>는 원문에 남긴 뒤 <strong>괄호 시각 확인</strong>을 안내합니다. 괄호의 뜻은 실제 시작, 참고 지점, 정정 등으로 다를 수 있어 자동으로 두 번째 항목이나 끝 시각을 만들지 않습니다.</p>
+<p>두 이동 지점을 뜻한다면 <code>01:23 / 02:55 시작</code>처럼 명시하세요. 시작과 끝이라면 역할이 있는 <code>01:23 ~ 02:55 [메모] 시작 구간</code>처럼 적으세요. 기존 댓글을 수정해야 가져올 수 있다는 뜻은 아닙니다. 모호한 부분을 미리보기에서 확인하기 위한 안내입니다.</p>
+<h2 id="붙여넣기와-원문-보존">붙여넣기와 원문 보존</h2>
+<div class="code-example"><span class="code-label">TEXT</span><pre><code>**01:00** 첫 게임
+- __02:00__ 첫 판
+\--02:10 사건</code></pre></div>
+<p>완전히 감싼 시각 강조 기호, 목록 앞의 escape, <code>&amp;#x20;</code>, <code>&amp;#32;</code>, <code>&amp;nbsp;</code> 공백은 구조를 읽을 때만 정리합니다. 원문은 그대로 보존합니다. 임의 HTML·스크립트나 모든 Markdown 표현을 실행·렌더링하지 않습니다.</p>
+<h2 id="원글과-답글">원글과 답글</h2>
+<p>선택한 답글은 별도 원문입니다. 원글 관계, 같은 시각의 서로 다른 설명, 오차 안내를 보존합니다. 같은 작성자의 선택한 답글을 이어 읽는 기능에서도 원문 출처는 유지합니다. 다른 사람의 답글을 시간 부모·수정 승인으로 자동 해석하지 않습니다. 별칭은 선언한 원문 안에서만 적용합니다.</p></article><nav class="page-turn" aria-label="이전 다음 문서"><a href="formats.html"><small>이전 문서</small><span>지원 형태 한눈에 ←</span></a><a href="ranges.html"><small>다음 문서</small><span>구간과 강조 →</span></a></nav><footer>원문과 의도를 보존하며, 확인한 장면을 시간축에 담습니다.<br><a href="source/existing.md">이 문서의 Markdown 원본</a> · <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/LICENSE">MIT 라이선스</a></footer></main>
+    <aside class="toc"><nav aria-label="현재 문서 목차"><p>이 문서에서</p><a class="toc-depth-2" href="#자연-목차">자연 목차</a><a class="toc-depth-2" href="#명확한-상대-들여쓰기">명확한 상대 들여쓰기</a><a class="toc-depth-2" href="#별도로-모은-목록">별도로 모은 목록</a><a class="toc-depth-2" href="#괄호-속-시각은-확인해-주세요">괄호 속 시각은 확인해 주세요</a><a class="toc-depth-2" href="#붙여넣기와-원문-보존">붙여넣기와 원문 보존</a><a class="toc-depth-2" href="#원글과-답글">원글과 답글</a></nav></aside>
+  </div>
+  <dialog id="search-dialog" aria-labelledby="search-title"><form method="dialog" class="search-head"><h2 id="search-title">문서 검색</h2><button aria-label="검색 닫기">닫기</button></form><label for="search-input">찾을 내용</label><input id="search-input" type="search" placeholder="예: 들여쓰기, 괄호, 합방" autocomplete="off"><p id="search-status" role="status">단어를 입력하면 문서를 찾습니다.</p><div id="search-results"></div></dialog>
+  <noscript><p class="no-script">본문과 목차는 그대로 읽을 수 있습니다. 검색은 브라우저의 페이지 찾기(Ctrl+F)를 사용하세요.</p></noscript>
+</body></html>

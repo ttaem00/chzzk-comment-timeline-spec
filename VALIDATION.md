@@ -1,5 +1,26 @@
 # 검증 기록
 
+## 0.4 소비자 후보와 읽기 사이트
+
+2026-10-03, 공개 편집 초안 0.4는 CVA-탬패드 0.3.23 후보를 대상으로 명확한 상대 들여쓰기·단독 구분자·정상 이웃 보존·괄호 시각 확인 안내를 설명합니다. 기존 14개 시각·계층 예제와 6개 인물/파일 예제는 유지하며 혼합 형상의 합성 예제 1개를 추가했습니다. 실제 사용자 댓글·계정 자료는 포함하지 않습니다.
+
+새 혼합 fixture는 시작·끝·역할·깊이·부모·진단을 함께 확인합니다. 2026-10-03에 현재 소비자 main commit `07ab0fb99ea4b5f80855c56db430c42ffe6a2b1d`와 대조해 시각·계층 15건, 인물/교환 파일 6건, 참가자 규격을 모두 통과했습니다. 검사한 `comment_format.js`의 Windows checkout SHA-256은 `8fba4e8c39be2c372ced824e9601bf6208112eafbdf672b773ce6179a64d2104`입니다. 소비자 별도 회귀 검사 382건과 로컬 병합 검증·Chrome/Whale 패키지 검사를 통과했습니다.
+
+실제 브라우저에서 현재 소비자 parser와 댓글 미리보기 모듈을 합성 입력으로 실행했습니다. 13개 이동 시각, 부모 아래 D2, 구분자 뒤 4개 독립 순간, 마지막 주제의 미확정 끝, 괄호 시각 안내를 확인했고 부분 입력에서 자동 끝이 미확정으로 유지됐습니다. 이 검증은 실제 설치본의 댓글 채택·영상 재생·저장까지 검증했다는 뜻이 아닙니다. 기존 메인 Chrome 확장은 사용자 승인으로 같은 ID·권한을 유지해 0.3.23 코드 갱신·재로드했고 활성 버전을 확인했습니다. 저장된 댓글·컷·초안은 변경하지 않았습니다. 확장 스토어 제출은 수행하지 않았습니다.
+
+읽기 사이트는 Python 표준 라이브러리만으로 8개 페이지를 생성합니다. 본문·문서 목차·현재 문서 목차·이전/다음·예제·원본 링크는 HTML에 있고, 로컬 검색과 작은 화면의 목차 접기는 보조 JavaScript입니다. builder가 로컬 링크·fragment·중복 ID를 검사합니다. 정적 검사만으로 실제 브라우저의 가독성·검색·키보드·반응형 통과를 주장하지 않습니다. 사이트에는 제품 parser·온라인 댓글 입력·인증·자동 게시가 없습니다.
+
+```text
+python scripts/build_site.py
+node scripts/validate.cjs
+node scripts/validate.cjs --parser /absolute/path/to/comment_format.js --roster-parser /absolute/path/to/people_input.js
+python -m http.server 8768 --directory docs
+```
+
+사이트 출력의 상대 경로와 SHA-256은 `docs/build-manifest.json`에 기록합니다. 재현 명령에는 비공개 저장소·계정·브라우저 자료가 필요하지 않습니다. 공개 소스는 이 저장소의 문서·합성 예제·site asset뿐이며 제품 설치 사본·배포 ZIP과 별도입니다.
+
+## 이전 검증 기록
+
 2026-10-01 공개 편집 초안 0.2. 기존 합성 fixture 8건과 자연 목차 5건을 현재 제품의 `comment_preview.v2` parser와 대조합니다. 검사 항목은 시작/끝, 진단, 미해석 원문이며 자연 목차는 역할·깊이·부모 연결도 확인합니다. D1–D6와 반복/복수 시각을 포함하고, 기존 제품의 별도 회귀 검사에는 부모 명단 상속, 강조, 부분 본문, 범위 오류, 답글 관계, 분할 뒤 부모 맥락과 종료 보존도 포함됩니다.
 
 ```text
@@ -38,7 +59,7 @@ node scripts/validate.cjs --parser /absolute/path/to/comment_format.js
 
 검사한 `comment_format.js` SHA-256: `2fd0ba6d708e28295b1532cafcbbfbb07c706b465150b61e6c6ba8dd8f61e8d2`.
 검사한 `people_input.js` SHA-256: `fbb3b4d2e42035b032bf3bd6406570c4813714a4d7201d27717fe51271e932d6`.
-대조한 소비자 구현 commit은 `61d6bf9df9d35a6e6584f5854a1e938c3c8ad220`입니다. 소비자 최종 gate는 212건, Chrome 38개 파일과 Whale 37개 파일 패키지 검사 PASS이며 [소비자 PR #26](https://github.com/ttaem00/chzzk-video-editor-workspace/pull/26)에 기록합니다. 이전 후보 검증은 위 기록의 해당 commit에만 적용됩니다.
+대조한 소비자 구현 commit은 `61d6bf9df9d35a6e6584f5854a1e938c3c8ad220`입니다. 당시 소비자 검증 기록은 212건, Chrome 38개 파일과 Whale 37개 파일 패키지 검사 PASS입니다. 이전 후보 검증은 위 기록의 해당 commit에만 적용됩니다.
 
 ```text
 node scripts/validate.cjs --parser /absolute/path/to/comment_format.js --roster-parser /absolute/path/to/people_input.js

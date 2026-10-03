@@ -6,7 +6,8 @@ const root = path.resolve(__dirname, '..');
 const fixtures = JSON.parse(fs.readFileSync(path.join(root, 'examples/fixtures.json'), 'utf8'));
 const naturalFixtures = JSON.parse(fs.readFileSync(path.join(root, 'examples/natural-hierarchy.json'), 'utf8'));
 const emphasized=JSON.parse(fs.readFileSync(path.join(root,'examples/nested-emphasis.json'),'utf8'));
-const cases = [...fixtures.cases, ...naturalFixtures.cases,...emphasized.cases];
+const mixed=JSON.parse(fs.readFileSync(path.join(root,'examples/mixed-formats.json'),'utf8'));
+const cases = [...fixtures.cases, ...naturalFixtures.cases,...emphasized.cases,...mixed.cases];
 const ids = new Set();
 for (const item of cases) {
   assert.ok(item.id && !ids.has(item.id)); ids.add(item.id);
@@ -16,12 +17,13 @@ for (const item of cases) {
     if (item.expected[key]) assert.equal(item.expected[key].length, item.expected.starts.length);
   }
 }
-for (const name of ['README.md', 'SPEC.md', 'SUPPORT.md', 'VALIDATION.md', 'CONTRIBUTING.md', 'PEOPLE.md', 'IMPORT.md','ROSTER.md']) {
+const siteSources = fs.readdirSync(path.join(root,'docs/source')).filter(name=>name.endsWith('.md')).map(name=>'docs/source/'+name);
+for (const name of ['README.md', 'SPEC.md', 'SUPPORT.md', 'VALIDATION.md', 'CONTRIBUTING.md', 'PEOPLE.md', 'IMPORT.md','ROSTER.md',...siteSources]) {
   const text = fs.readFileSync(path.join(root, name), 'utf8');
   assert.equal((text.match(/^```/gm) || []).length % 2, 0, `unclosed code fence in ${name}`);
   for (const [, target] of text.matchAll(/\]\(([^)]+)\)/g)) {
     if (/^https?:/.test(target)) continue;
-    assert.ok(fs.existsSync(path.resolve(root, target.split('#')[0])), `missing link ${target}`);
+    assert.ok(fs.existsSync(path.resolve(path.dirname(path.join(root,name)), target.split('#')[0])), `missing link ${name}: ${target}`);
   }
 }
 console.log(`Static documentation PASS; ${cases.length} synthetic cases`);

@@ -1,0 +1,21 @@
+{
+  "kind": "public-safe-synthetic-mixed-comment-forms",
+  "cases": [
+    {
+      "id": "emphasis-relative-indent-independent-index-review-parenthesis",
+      "documents": [{
+        "name": "합성 활동 목차와 곡 색인",
+        "raw": "**1:23** 시작 ( **2:55**)\n\n**8:10** 가상 커버 최초 공개\n**13:00** 한번 더 듣기\n**24:30** 녹음파일 공개\n\n**40:18** 가상 예고편 이야기\n\n**1:42:32** 가상 게임 튜토리얼\n　　 **2:04:26** 첫 생존 도전\n\n**6:50:48** 가상 사진 분류 게임\n\n**8:27:29** 마지막 순간\n\n■\n**32:03** 가상 가수 - 가상 곡 A\n**8:03:35** 가상 작곡가 feat. 가상 가수 - 가상 곡 B\n**8:10:59** 가상 가수 - 가상 곡 C\n**8:19:16** 가상 가수 - 가상 곡 D"
+      }],
+      "context": {"durationSec": 36000},
+      "expected": {
+        "starts": [83, 490, 780, 1470, 2418, 6152, 7466, 24648, 30449, 1923, 29015, 29459, 29956],
+        "ends": [490, 780, 1470, 2418, 6152, 24648, 24648, 30449, null, null, null, null, null],
+        "roles": ["chapter", "chapter", "chapter", "chapter", "chapter", "chapter", "chapter", "chapter", "chapter", "point", "point", "point", "point"],
+        "depths": [1, 1, 1, 1, 1, 1, 2, 1, 1, null, null, null, null],
+        "parents": [-1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, -1],
+        "diagnostics": ["parenthesized_time_review"]
+      }
+    }
+  ]
+}
