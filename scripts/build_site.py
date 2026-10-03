@@ -9,7 +9,6 @@ import hashlib
 import html
 import json
 import re
-import shutil
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -79,6 +78,31 @@ def inline(text: str) -> str:
     return text
 
 
+def image_figure(alt: str, target: str) -> str:
+    """Render a local screenshot, never an embed or an editor resource."""
+    # Markdown lives in docs/source; generated pages live one level above it.
+    if target.startswith('../assets/'):
+        target = target[3:]
+    parsed = urlsplit(target)
+    if (parsed.scheme or parsed.netloc or parsed.query or parsed.fragment or
+            not target.startswith('assets/') or '\\' in target):
+        raise ValueError('images must be local docs/assets PNG files')
+    destination = (DOCS / unquote(parsed.path)).resolve()
+    if not destination.is_relative_to((DOCS / 'assets').resolve()) or destination.suffix.lower() != '.png':
+        raise ValueError('images must be local docs/assets PNG files')
+    with destination.open('rb') as image:
+        header = image.read(24)
+    if len(header) != 24 or header[:8] != b'\x89PNG\r\n\x1a\n' or header[12:16] != b'IHDR':
+        raise ValueError('image is not a PNG')
+    width, height = int.from_bytes(header[16:20], 'big'), int.from_bytes(header[20:24], 'big')
+    if not alt.strip() or not width or not height:
+        raise ValueError('image needs alternative text and valid dimensions')
+    safe_target, safe_alt = html.escape(target, quote=True), html.escape(alt, quote=True)
+    return (f'<figure class="screen-figure"><a href="{safe_target}" aria-label="{safe_alt} — 원본 이미지 보기">'
+            f'<img src="{safe_target}" alt="{safe_alt}" width="{width}" height="{height}" loading="lazy" decoding="async">'
+            '</a><figcaption>이미지를 선택하면 원본 크기로 볼 수 있습니다.</figcaption></figure>')
+
+
 def render_markdown(text: str):
     lines = text.splitlines()
     output, headings, paragraph = [], [], []
@@ -101,6 +125,9 @@ def render_markdown(text: str):
                 raise ValueError("unclosed code fence")
             output.append('<div class="code-example"><span class="code-label">' + html.escape(language.upper()) +
                           '</span><pre><code>' + html.escape("\n".join(body)) + '</code></pre></div>')
+        elif match := re.fullmatch(r"!\[([^\]]+)\]\(([^)]+)\)\s*", line):
+            flush()
+            output.append(image_figure(match[1], match[2]))
         elif match := re.match(r"^(#{1,6})\s+(.+)$", line):
             flush()
             level, title = len(match[1]), match[2]
@@ -140,8 +167,13 @@ def navigation(current: str) -> str:
     parts, previous_group = [], None
     for key, label, group in PAGES:
         if group != previous_group:
-            parts.append('<p class="nav-group">' + group + '</p>'); previous_group = group
+            if previous_group is not None:
+                parts.append('</div>')
+            group_id = 'nav-' + slug(group)
+            parts.append(f'<div class="nav-section" role="group" aria-labelledby="{group_id}"><p id="{group_id}" class="nav-group">{group}</p>')
+            previous_group = group
         parts.append(f'<a href="{key}.html"' + (' aria-current="page"' if key == current else '') + '>' + label + '</a>')
+    parts.append('</div>')
     return "\n".join(parts)
 
 
@@ -164,7 +196,7 @@ def page_template(key, label, article, headings, previous, next_page):
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="site-header">
     <a class="brand" href="index.html"><img src="assets/app-icon.png" alt="" width="36" height="36"><span>CVA-탬패드<small>댓글 시간축 안내</small></span></a>
-    <div class="header-actions"><span class="version">편집 초안 0.4</span><button class="search-open" type="button" hidden>문서 검색 <kbd>/</kbd></button><a href="https://ttaem.com/brand/ttaempad">제품 소개 <span aria-hidden="true">↗</span></a></div>
+    <div class="header-actions"><span class="version">편집 초안 0.4</span><button class="search-open" type="button" hidden>문서 검색 <kbd>/</kbd></button><a class="product-link" href="https://ttaem.com/brand/ttaempad">제품 소개 <span aria-hidden="true">↗</span></a><a class="store-cta" href="https://chromewebstore.google.com/detail/ajokeikoipagcdnpdkkbamidkjgeghon/preview?hl=ko&amp;authuser=0">Chrome 스토어 보기 <span aria-hidden="true">↗</span></a></div>
   </header>
   <div class="site-layout">
     <aside class="sidebar"><details class="nav-drawer" open><summary>문서 목차</summary><nav aria-label="문서">{navigation(key)}</nav><div class="sidebar-foot"><span>지원 기준 0.3.23 후보</span><a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec">공개 문서 저장소 ↗</a></div></details></aside>
@@ -207,7 +239,12 @@ def validate_site():
 def main():
     DOCS.mkdir(exist_ok=True); (DOCS / 'assets').mkdir(exist_ok=True)
     (DOCS / '.nojekyll').write_bytes(b'')
-    shutil.copytree(ROOT / 'examples', DOCS / 'examples', dirs_exist_ok=True)
+    # Keep deployed text identical across LF and Windows CRLF checkouts.
+    for example in (ROOT / 'examples').rglob('*'):
+        if example.is_file():
+            destination = DOCS / 'examples' / example.relative_to(ROOT / 'examples')
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(example.read_bytes().replace(b'\r\n', b'\n'))
     search = []
     for index, (key, label, _) in enumerate(PAGES):
         text = (SOURCE / (key + '.md')).read_text(encoding='utf-8')

@@ -6,16 +6,17 @@
   "generated": {
     "docs/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/assets/app-icon.png": "93bf3adb366880eec513fbfd2a1593b13df91a005949b0dd695ba2ba0b76fea1",
-    "docs/assets/search-index.js": "58ef244690f60a3dddc684238a3bffe43deabd5c06ae3532d8eb90f772b10a26",
-    "docs/assets/site.css": "19da2df74583881fc91ef9532841ab0f439d8386527255624144190f85e16d4d",
+    "docs/assets/search-index.js": "188dec6e226fe1537d7be88d51d4a36cf427c32dc1786f623ecb4f810ba3ba35",
+    "docs/assets/site.css": "c3f0a68143a968df309099bc0506f76da383cc255829db07dfdc2a227ac3904d",
     "docs/assets/site.js": "6c2c7c7e9b43b10fc61014b187188e409ace31b46eda58eedc8d75ee28dc240b",
-    "docs/existing.html": "9da564305dea5bd738f7d9f8dcc23564c2bb9b27b7de9afec57e93693061d22f",
-    "docs/files.html": "12d045a4b83bc34e709ccb26f9ae6217cafb04faf9533e191383cf523971b5f3",
-    "docs/formats.html": "3c80238feec338925e21d200618f33bf9a8af06df8b3aae73b6bbe5b497ee9a0",
-    "docs/index.html": "52d9e75580ecf6b817a819f89d711de2e340fd606a22255c5bd38bd63aa81c9a",
-    "docs/limits.html": "218a36921210d426231a56d557915792f25ce8d869368f18151105b4f9011425",
-    "docs/people.html": "87af8c00f44b70abfa350f0b570d055152a68cc3ba4f9acbf145c1ed7f9eec44",
-    "docs/ranges.html": "5d43b132c29af00deed6c9ed3b2741237ae94a3f30ef6fb169688caf2d72073a",
-    "docs/reference.html": "0917b7769da28a5a6f706be902957aa51a9f452e5d742ad43e14328a0cf4786d"
+    "docs/assets/timeline-preview.png": "58103000c759d2d98b5566f4ada8e462343086150479d1b9f1f21e4d3c0b21a6",
+    "docs/existing.html": "7a3376a50996c7686ae09dfcfe97bcdbac086707cd16bbe93153fdbc8c27868d",
+    "docs/files.html": "b5a211729106eb490edb2f114cc4965a63fee41d1b548eafdbdaf7cf51dc444e",
+    "docs/formats.html": "6f0c54ab2ef6bae48794ca1b4df2bbc35b87e36919fdd2eb3059b7fb554f21b2",
+    "docs/index.html": "a7d3ac362d9946b4376f3876be5c265c1e3491ef63cdab4f686776280934adc3",
+    "docs/limits.html": "78a5a923629177f7559bbba91e4610b08b9e1b7852ac1d5d8bdd59fd94d7cdda",
+    "docs/people.html": "2f222daf3bd365140052136f884b8b27a57376ac44e66b8010f8eb98bbee5fe8",
+    "docs/ranges.html": "fe6886a279a4420d03d8f9181dab621a4696623f29a1664e0e5124cb2d824a63",
+    "docs/reference.html": "129ee7df99ed915b9eefd9e2b17e0c5b18271f625d1d4adcbaec0dc179271d86"
   }
 }
