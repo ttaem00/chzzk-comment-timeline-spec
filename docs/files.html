@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>파일 가져오기 · CVA-탬패드 댓글 안내</title>
+  <title>파일 형식과 예제 · CVA-탬패드 댓글 안내</title>
   <meta name="description" content="CVA-탬패드가 읽는 댓글 시각과 목차, 구간, 인물, 파일 형식을 예제로 설명합니다.">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="assets/app-icon.png" type="image/png">
@@ -20,20 +20,26 @@
     <aside class="sidebar"><details class="nav-drawer" open><summary>문서 목차</summary><nav aria-label="문서"><div class="nav-section" role="group" aria-labelledby="nav-시작하기"><p id="nav-시작하기" class="nav-group">시작하기</p>
 <a href="index.html">빠른 시작</a>
 <a href="formats.html">지원 형태 한눈에</a>
-<a href="timeline.html">시간축 읽는 법</a>
+</div>
+<div class="nav-section" role="group" aria-labelledby="nav-시간축-용어"><p id="nav-시간축-용어" class="nav-group">시간축 용어</p>
+<a href="timeline.html">D1·D2·Point</a>
 </div>
 <div class="nav-section" role="group" aria-labelledby="nav-작성과-읽기"><p id="nav-작성과-읽기" class="nav-group">작성과 읽기</p>
 <a href="existing.html">기존 댓글 읽기</a>
 <a href="ranges.html">구간과 강조</a>
 <a href="people.html">인물과 합방</a>
 </div>
+<div class="nav-section" role="group" aria-labelledby="nav-자료-가져오기"><p id="nav-자료-가져오기" class="nav-group">자료 가져오기</p>
+<a href="summary.html">요약과 JSON 가져오기</a>
+<a href="files.html" aria-current="page">파일 형식과 예제</a>
+</div>
 <div class="nav-section" role="group" aria-labelledby="nav-더-알아보기"><p id="nav-더-알아보기" class="nav-group">더 알아보기</p>
-<a href="files.html" aria-current="page">파일 가져오기</a>
 <a href="limits.html">한계와 문제 해결</a>
 <a href="reference.html">규격과 검증</a>
 </div></nav><div class="sidebar-foot"><span>지원 기준 0.3.23 후보</span><a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec">공개 문서 저장소 ↗</a></div></details></aside>
-    <main id="main" tabindex="-1"><p class="eyebrow">CVA-TTAEMPAD / COMMENT GUIDE</p><article><h1 id="파일-가져오기">파일 가져오기</h1>
+    <main id="main" tabindex="-1"><p class="eyebrow">CVA-TTAEMPAD / COMMENT GUIDE</p><article><h1 id="파일-형식과-예제">파일 형식과 예제</h1>
 <p>시간축 댓글, 참가자 자료, 컷 작업, 영상 파일은 목적이 다릅니다. 파일을 선택했을 때 무엇이 적용되는지 확인하세요.</p>
+<p><strong>로컬 호환 시간축 JSON·TXT는 ttaem.com에 게시할 필요가 없습니다.</strong> 공개 요약 자동 연결과 로컬 파일 가져오기의 차이, 앱에서 여는 순서는 <a href="summary.html">요약과 JSON 가져오기</a>를 먼저 읽으세요. D1·D2·Point·예상 구간의 뜻은 별도 <a href="timeline.html">시간축 용어</a>에서 설명합니다. 이 페이지는 파일의 필드와 제한을 확인하는 참고 문서입니다.</p>
 <h2 id="평문-txt">평문 TXT</h2>
 <p>기존 댓글 평문은 TXT로 가져와 미리보기할 수 있습니다. JSON을 작성할 필요는 없습니다. 원문·시각·진단을 확인한 뒤 시간축에 불러옵니다.</p>
 <h2 id="시간축-json-가져오기">시간축 JSON 가져오기</h2>
@@ -52,7 +58,8 @@
     ]
   }]
 }</code></pre></div>
-<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">필드</th><th scope="col">의미·조건</th></tr></thead><tbody><tr><td><code>documents</code></td><td>1–100개의 원문 문서. 서로 다른 문서의 부모·구간·별칭을 섞지 않음</td></tr><tr><td>문서 <code>name</code></td><td>선택적 표시 이름; 소비자 표시 한도 120자</td></tr><tr><td><code>raw</code> 또는 <code>entries</code></td><td>둘 중 하나. <code>raw</code>는 기존 댓글 문자열을 그대로 보존. <code>entries</code>는 아래 의미 항목을 권고 Markdown으로 투영</td></tr><tr><td><code>aliases</code></td><td>선택적 문서별 가명 목록, 최대 100개. alias/streamer는 공백만으로 이루어지지 않은 80자 이하 문자열; 줄바꿈·대괄호·꺾쇠·슬래시 금지</td></tr><tr><td>항목 <code>startSec</code></td><td>0 이상의 안전한 정수, VOD 경과초</td></tr><tr><td><code>endSec</code></td><td>선택적 정수, 시작보다 뒤. 영상 범위·역할에 맞는지는 host 길이를 포함한 미리보기에서 확인</td></tr><tr><td><code>title</code></td><td>줄바꿈 없는 1,000자 이하 문자열</td></tr><tr><td><code>role</code></td><td>생략하면 <code>point</code>; <code>chapter</code>, <code>memo</code>, <code>watch</code>, <code>highlight</code>, <code>expected_highlight</code>, <code>collab_context</code> 지원</td></tr><tr><td><code>depth</code></td><td>chapter일 때 1–6; 부모 누락이나 겹침은 일반 댓글과 같은 진단 규칙 적용</td></tr><tr><td>루트 <code>videoNo</code></td><td>CHZZK 소비자용 선택적 양의 영상 번호. 지정하면 현재 VOD와 같아야 함; 플랫폼 중립 시간 의미와 별개</td></tr></tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">필드</th><th scope="col">의미·조건</th></tr></thead><tbody><tr><td><code>documents</code></td><td>1–100개의 원문 문서. 서로 다른 문서의 부모·구간·별칭을 섞지 않음</td></tr><tr><td>문서 <code>name</code></td><td>선택적 표시 이름; 소비자 표시 한도 120자</td></tr><tr><td><code>raw</code> 또는 <code>entries</code></td><td>둘 중 하나. <code>raw</code>는 기존 댓글 문자열을 그대로 보존. <code>entries</code>는 아래 의미 항목을 권고 Markdown으로 투영</td></tr><tr><td><code>aliases</code></td><td>선택적 문서별 가명 목록, 최대 100개. alias/streamer는 공백만으로 이루어지지 않은 80자 이하 문자열; 줄바꿈·대괄호·꺾쇠·슬래시 금지</td></tr><tr><td>항목 <code>startSec</code></td><td>0 이상의 안전한 정수, VOD 경과초</td></tr><tr><td><code>endSec</code></td><td>선택적 정수, 시작보다 뒤. 영상 범위·역할에 맞는지는 host 길이를 포함한 미리보기에서 확인</td></tr><tr><td><code>title</code></td><td>줄바꿈 없는 1,000자 이하 문자열</td></tr><tr><td><code>role</code></td><td>생략하면 <code>point</code>; <code>chapter</code>, <code>memo</code>, <code>watch</code>, <code>highlight</code>, <code>collab_context</code>. 예상 구간은 아래 현재 버전 제한 확인</td></tr><tr><td><code>depth</code></td><td>chapter일 때 1–6; 부모 누락이나 겹침은 일반 댓글과 같은 진단 규칙 적용</td></tr><tr><td>루트 <code>videoNo</code></td><td>CHZZK 소비자용 선택적 양의 영상 번호. 지정하면 현재 VOD와 같아야 함; 플랫폼 중립 시간 의미와 별개</td></tr></tbody></table></div>
+<p><strong>현재 0.3.23의 제한:</strong> <code>entries</code>에서 <code>role: &quot;expected_highlight&quot;</code>를 직접 지정하면 역할 대조 검사가 거부합니다. 예상 구간은 문서 <code>raw</code>에 <code>- 03:00 ~ 03:20 [H?] 검토할 장면</code>처럼 담으세요. 해석 결과는 하이라이트 역할과 검토 전 후보 상태를 함께 유지합니다. <a href="examples/summary-timeline.json">가상 요약 시간표 예제</a>는 이 경로를 사용합니다.</p>
 <p>입력은 250,000자 이하, 문서당 항목 최대 5,000개입니다. 본문·진단·완전성 및 영상 길이 규칙은 <a href="reference.html">의미 계약</a>을 따릅니다. <code>point</code>는 순간이므로 <code>endSec</code>를 사용할 수 없습니다. 범위는 <code>memo</code> 또는 하이라이트 등 해당 역할로 지정하세요. 소비자는 Markdown으로 투영한 뒤 항목 수·역할·시작·명시한 끝·chapter 깊이가 입력과 같은지 확인합니다. 제목의 다른 타임코드나 구문 때문에 의미가 바뀌면 불러오기를 거부하고 원문 <code>raw</code> 사용을 안내합니다. 영상 밖 시간과 부모 구조 진단은 미리보기에서 확인합니다.</p>
 <p>생성된 entries 본문에는 원래 자연어 댓글이 존재하지 않습니다. 소비자는 이를 원본 댓글이라고 주장하지 말아야 합니다. 원문 출처가 있으면 <code>raw</code>를 사용하세요. 현재 버전은 외부 <code>parentId</code>, 채널 URL/ID, 확정 싱크, 임의 실행 코드나 HTML을 가져오지 않습니다. <code>.txt</code> 평문 가져오기는 이전 호환 기능으로 유지합니다.</p>
 <p>합성 JSON 예제는 <a href="examples/portable-timeline.json">portable-timeline.json</a>입니다. 파일 전체를 임의 댓글에 붙여넣는 사용법은 권하지 않습니다.</p>
@@ -79,7 +86,7 @@
 <p>현재 소비자는 기존 <code>schemaVersion: 3</code> 자료도 읽습니다. 최소 <code>projectId</code> 문자열과 2–12명의 <code>people</code>이 필요합니다. 각 인물은 고유한 <code>id</code>, <code>name</code>과 <code>vod.url</code>을 가지며, <code>vod.url</code>은 <code>https://chzzk.naver.com/video/숫자</code>입니다. 현재 기준 VOD가 명단에 포함되어야 하고 중복 VOD는 거부합니다. <code>vod.wallAnchorSec</code>와 <code>vod.vodAnchorSec</code>가 유효하면 차이를 영상 0초의 벽시계 기준으로 사용합니다. <code>vod.verified: true</code>는 공급자의 확인 표시이며, 같은 사건이나 실제 음성 싱크를 소비자가 새로 검증한 증거가 아닙니다.</p>
 <p>참가자 파일은 이름 검색에 필요한 최소 구조입니다. Syncher 자료는 이미 연결한 VOD와 기준 시각을 전달하는 기존 제품 자료입니다. 컷 작업 JSON과 자동 게시 형식으로 쓰지 않습니다.</p>
 <h3 id="자동-선택과-보정">자동 선택과 보정</h3>
-<p>유일하게 정확한 이름이 일치하는 채널만 자동 후보로 선택합니다. 모호한 이름은 선택을 요청합니다. 방송 시작·길이로 현재 기준 시각을 포함하는 VOD를 고르며, 방송 재시작으로 나뉜 VOD는 다른 다시보기 목록에서 바꿀 수 있어야 합니다. 겹치는 영상이 없으면 임의로 가까운 영상을 정렬하지 않습니다. 방송 시각에 따른 초벌 정렬과 같은 장면의 개인 시각 보정은 구분합니다. 개인 보정은 기준/비교 VOD 쌍에만 적용하고, 영상 선택과 소리 선택은 독립적으로 제공합니다.</p></article><nav class="page-turn" aria-label="이전 다음 문서"><a href="people.html"><small>이전 문서</small><span>인물과 합방 ←</span></a><a href="limits.html"><small>다음 문서</small><span>한계와 문제 해결 →</span></a></nav><footer><p class="doc-meta">문서 규격 0.4 · 편집 초안</p>원문과 의도를 보존하며, 확인한 장면을 시간축에 담습니다.<br><a href="source/files.md">이 문서의 Markdown 원본</a> · <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/LICENSE">MIT 라이선스</a></footer></main>
+<p>유일하게 정확한 이름이 일치하는 채널만 자동 후보로 선택합니다. 모호한 이름은 선택을 요청합니다. 방송 시작·길이로 현재 기준 시각을 포함하는 VOD를 고르며, 방송 재시작으로 나뉜 VOD는 다른 다시보기 목록에서 바꿀 수 있어야 합니다. 겹치는 영상이 없으면 임의로 가까운 영상을 정렬하지 않습니다. 방송 시각에 따른 초벌 정렬과 같은 장면의 개인 시각 보정은 구분합니다. 개인 보정은 기준/비교 VOD 쌍에만 적용하고, 영상 선택과 소리 선택은 독립적으로 제공합니다.</p></article><nav class="page-turn" aria-label="이전 다음 문서"><a href="summary.html"><small>이전 문서</small><span>요약과 JSON 가져오기 ←</span></a><a href="limits.html"><small>다음 문서</small><span>한계와 문제 해결 →</span></a></nav><footer><p class="doc-meta">문서 규격 0.4 · 편집 초안</p>원문과 의도를 보존하며, 확인한 장면을 시간축에 담습니다.<br><a href="source/files.md">이 문서의 Markdown 원본</a> · <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/LICENSE">MIT 라이선스</a></footer></main>
     <aside class="toc"><nav aria-label="현재 문서 목차"><p>이 문서에서</p><a class="toc-depth-2" href="#평문-txt">평문 TXT</a><a class="toc-depth-2" href="#시간축-json-가져오기">시간축 JSON 가져오기</a><a class="toc-depth-2" href="#참가자와-역할-이름-가져오기">참가자와 역할 이름 가져오기</a></nav></aside>
   </div>
   <dialog id="search-dialog" aria-labelledby="search-title"><form method="dialog" class="search-head"><h2 id="search-title">문서 검색</h2><button aria-label="검색 닫기">닫기</button></form><label for="search-input">찾을 내용</label><input id="search-input" type="search" placeholder="예: 들여쓰기, 괄호, 합방" autocomplete="off"><p id="search-status" role="status">단어를 입력하면 문서를 찾습니다.</p><div id="search-results"></div></dialog>

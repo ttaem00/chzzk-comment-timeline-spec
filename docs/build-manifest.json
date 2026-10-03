@@ -2,7 +2,7 @@
   "format": "cva-ttaempad.reading-site.v1",
   "documentVersion": "0.4",
   "consumer": "0.3.23 candidate",
-  "pages": 9,
+  "pages": 10,
   "generated": {
     "docs/.nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "docs/assets/app-icon.png": "93bf3adb366880eec513fbfd2a1593b13df91a005949b0dd695ba2ba0b76fea1",
@@ -21,18 +21,19 @@
     "docs/assets/examples/ranges-2.png": "c4b32f5d67dbcaebc7ce280ae15c2ad63e95150690398f694e685bd8c651ac6c",
     "docs/assets/examples/ranges-3.png": "e70a770b2babec51a6677dc061f09c0e7e24ec6eb26e1acef83caa7346865c2f",
     "docs/assets/examples/ranges-4.png": "79c6bfb01d8f23f735ccde768a0d893a11ee64511c2fefa45c7f02c965122f4c",
-    "docs/assets/search-index.js": "2f09065831e47d8fd6d47bff0f1dabf10c686ea569cf0d7eaea248b1a24f1318",
+    "docs/assets/search-index.js": "c18c6cb314b332f33f9a6989868b3b8ec6be146de95fd6f91dc1628dafd7dfb2",
     "docs/assets/site.css": "b2f41274149adeb4fa1755caa029f2c77ddf52b19b1a658ffce8b3d7c1bac915",
     "docs/assets/site.js": "6c2c7c7e9b43b10fc61014b187188e409ace31b46eda58eedc8d75ee28dc240b",
     "docs/assets/timeline-preview.png": "58103000c759d2d98b5566f4ada8e462343086150479d1b9f1f21e4d3c0b21a6",
-    "docs/existing.html": "2096b3b0173f781d38015939368a140262a64829f472afa804d5e23f01005217",
-    "docs/files.html": "377b5e548a840e81c71636623c7387afd08550adfdf52d4c1e253387630cb9d9",
-    "docs/formats.html": "3c52d756efc7cd97287dfac054918c7d1c724a59334c7935b43caf94bc935a2e",
-    "docs/index.html": "4b6ee070a720b447381cbd49bffb0d074933a29c44ab24225b9c97fd97510098",
-    "docs/limits.html": "51e684579011a5bd4e23bf9bfd4c6b92f45125687948670ff210135881bef927",
-    "docs/people.html": "18d8dade5291a8bd2049aac1d999f4052f6ae05c9ef5a4cbe3ef7fd429144af1",
-    "docs/ranges.html": "24d1b9d77812fb299750654aab5af429ac786f80ba4d04954c938a09fc0bbf5c",
-    "docs/reference.html": "2efba17a8952b01a85b6095be7ad3b7a465a205d75cc09057504074d12b83c93",
-    "docs/timeline.html": "bbe1f07ec8e1c98b2d95cbc9b2f70cd1959adfab925ad32bbe0dce0905687bc1"
+    "docs/existing.html": "f56cdeffb7a9c135887a34d14431aec4cfabe9b283406b6b9ea8a250b221d811",
+    "docs/files.html": "df3bd28111040322bb6a29f89226aedf615f2f81891d839d8d0d19c5d2da7602",
+    "docs/formats.html": "c02fc2515b1a00258f8abf2395864f1f0ec458885db9e67861a436cc459d30b5",
+    "docs/index.html": "9227248ed9aa30c17f34b29679c38e4886435f9efe0889df00edccf3cacf8fb5",
+    "docs/limits.html": "16d9c4f27fdec97b10f274116f74cf76818842d327e2c108a66bca506d1c9bf2",
+    "docs/people.html": "69d591011fd6fd4d110152b92596c0752a81172bea41db4b564efb8f8d112113",
+    "docs/ranges.html": "a2ab098a56f3b098ae2f192715f04ff6ba3365202490d60a6abd724adc2cd69e",
+    "docs/reference.html": "1c8583fbba252d18ee9d868af9daaee7a8b4c7f9929acbb4e76432b93c75eea5",
+    "docs/summary.html": "d0a9a6fe9fa30f6dfcb8d4fd11d1e42bdfdec25f663075ebe254cd2258f857cf",
+    "docs/timeline.html": "b514ea839a0d74a2342938413ae3834fbc7d95e3654fadd9614762752921774d"
   }
 }

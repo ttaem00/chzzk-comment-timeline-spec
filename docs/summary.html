@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>요약과 JSON 가져오기 · CVA-탬패드 댓글 안내</title>
+  <meta name="description" content="CVA-탬패드가 읽는 댓글 시각과 목차, 구간, 인물, 파일 형식을 예제로 설명합니다.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="assets/app-icon.png" type="image/png">
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/search-index.js" defer></script><script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><img src="assets/app-icon.png" alt="" width="36" height="36"><span>CVA-탬패드<small>댓글 시간축 안내</small></span></a>
+    <button class="search-open" type="button" hidden><span>문서 검색</span><kbd aria-hidden="true">/</kbd></button>
+    <nav class="header-actions" aria-label="제품 링크"><a class="product-link" href="https://ttaem.com/brand/ttaempad">제품 소개 <span aria-hidden="true">↗</span></a><a class="store-cta" href="https://chromewebstore.google.com/detail/ajokeikoipagcdnpdkkbamidkjgeghon/preview?hl=ko&amp;authuser=0">Chrome 스토어 보기 <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <div class="site-layout">
+    <aside class="sidebar"><details class="nav-drawer" open><summary>문서 목차</summary><nav aria-label="문서"><div class="nav-section" role="group" aria-labelledby="nav-시작하기"><p id="nav-시작하기" class="nav-group">시작하기</p>
+<a href="index.html">빠른 시작</a>
+<a href="formats.html">지원 형태 한눈에</a>
+</div>
+<div class="nav-section" role="group" aria-labelledby="nav-시간축-용어"><p id="nav-시간축-용어" class="nav-group">시간축 용어</p>
+<a href="timeline.html">D1·D2·Point</a>
+</div>
+<div class="nav-section" role="group" aria-labelledby="nav-작성과-읽기"><p id="nav-작성과-읽기" class="nav-group">작성과 읽기</p>
+<a href="existing.html">기존 댓글 읽기</a>
+<a href="ranges.html">구간과 강조</a>
+<a href="people.html">인물과 합방</a>
+</div>
+<div class="nav-section" role="group" aria-labelledby="nav-자료-가져오기"><p id="nav-자료-가져오기" class="nav-group">자료 가져오기</p>
+<a href="summary.html" aria-current="page">요약과 JSON 가져오기</a>
+<a href="files.html">파일 형식과 예제</a>
+</div>
+<div class="nav-section" role="group" aria-labelledby="nav-더-알아보기"><p id="nav-더-알아보기" class="nav-group">더 알아보기</p>
+<a href="limits.html">한계와 문제 해결</a>
+<a href="reference.html">규격과 검증</a>
+</div></nav><div class="sidebar-foot"><span>지원 기준 0.3.23 후보</span><a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec">공개 문서 저장소 ↗</a></div></details></aside>
+    <main id="main" tabindex="-1"><p class="eyebrow">CVA-TTAEMPAD / COMMENT GUIDE</p><article><h1 id="요약과-json-가져오기">요약과 JSON 가져오기</h1>
+<p><strong>호환 시간축 JSON은 ttaem.com에 게시하지 않고 로컬 파일로 가져올 수 있습니다.</strong> CVA 등 분석 도구에서 정리한 큰 흐름·장면·순간·검토 범위를 지원 형식으로 준비하면, 탬패드에서 미리보기한 뒤 같은 시간축에 담을 수 있습니다.</p>
+<p>다만 CVA 공개 요약의 원본 <code>editor-tools.json</code>과 로컬에서 여는 호환 시간축 JSON은 형식과 적용 경로가 다릅니다. 아래는 <strong>CVA-탬패드 0.3.23 기준</strong> 안내입니다.</p>
+<h2 id="어떤-자료를-가져오나요">어떤 자료를 가져오나요?</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">자료</th><th scope="col">어떻게 사용하나요?</th><th scope="col">ttaem.com 게시가 필요한가요?</th></tr></thead><tbody><tr><td><strong>CVA 공개 요약</strong> · <code>viewer_editor_tools.v1</code></td><td>현재 다시보기의 공개 <code>editor-tools.json</code>을 자동으로 불러옴</td><td>현재 자동 연결은 해당 영상의 공개 자료가 있어야 함</td></tr><tr><td><strong>호환 시간축 JSON</strong> · <code>chzzk.comment-timeline</code>, <code>version: 1</code></td><td>로컬 파일 열기 → 미리보기 → 확인 후 시간축에 불러오기</td><td>필요 없음</td></tr><tr><td><strong>시간표 TXT</strong></td><td>댓글이나 직접 정리한 시각 목록을 파일로 열어 확인 후 적용</td><td>필요 없음</td></tr><tr><td><strong>저장한 컷 작업 JSON</strong></td><td>‘작업 이어 열기’로 이전 편집 작업을 복원</td><td>필요 없음</td></tr></tbody></table></div>
+<p>파일 확장자가 모두 <code>.json</code>이어도 용도가 같지는 않습니다. 요약 파일을 컷 작업으로 열거나, 컷 작업을 댓글 시간표로 넣지 마세요. 참가자·합방 자료는 <a href="files.html#참가자와-역할-이름-가져오기">별도 파일 안내</a>를 따릅니다.</p>
+<h2 id="ttaem-com의-공개-요약을-사용하려면">ttaem.com의 공개 요약을 사용하려면</h2>
+<ol><li><a href="https://ttaem.com/#recent">공개 요약 목록</a>에서 방송과 다시보기를 확인합니다.</li><li>해당 다시보기를 열고 탬패드 작업실에 들어갑니다.</li><li>공개 요약이 있으면 장면 목록과 <strong>요약 시간축</strong>에서 확인합니다. 댓글 자료와는 출처를 구분해 읽으세요.</li></ol>
+<p>공개 요약 페이지는 <code>/vods/영상번호/report</code>, 앱이 요청하는 자료는 <code>/vods/영상번호/editor-tools.json</code>입니다. 현재 다시보기의 영상 번호와 자료의 영상 번호가 같아야 합니다. 요약이 없는 영상도 댓글이나 로컬 호환 시간표로 작업할 수 있습니다.</p>
+<p>현재 ‘시간표 파일 열기’는 CVA 공개 요약의 <strong>원본 <code>editor-tools.json</code>을 그대로 가져오는 입력이 아닙니다.</strong> 다른 사이트의 JSON 주소를 넣으면 자동으로 연결되거나, 파일 이름만 바꾸면 호환되는 기능도 제공하지 않습니다.</p>
+<h2 id="게시-없이-로컬-json으로-사용하려면">게시 없이 로컬 JSON으로 사용하려면</h2>
+<ol><li>자료를 <code>chzzk.comment-timeline</code> 버전 1의 <code>.json</code> 파일로 준비합니다. 댓글 평문이 있으면 <code>.txt</code>를 사용할 수도 있습니다.</li><li>작업실의 <strong>댓글 가져오기 → 시간표 파일 열기</strong>에서 파일을 고릅니다.</li><li>미리보기에서 영상 시각·항목 종류·부모 구간·원문 또는 생성된 시간표·확인 안내를 살펴봅니다.</li><li>사용할 자료를 <strong>시간축에 불러오기</strong>로 적용합니다. 파일 선택과 미리보기만으로 기존 자료를 덮어쓰지 않습니다.</li></ol>
+<p>이 파일을 ttaem.com이나 댓글 게시판에 먼저 올릴 필요는 없습니다. JSON 파일 전체를 댓글 입력칸에 붙여 넣는 방식도 필요하지 않습니다. 로컬 가져오기는 파일의 시간표를 읽는 기능이며, 영상 파일 자체를 포함하거나 방송 요약 페이지를 새로 게시하지 않습니다.</p>
+<h2 id="cva에서-정리한-내용을-호환-형식으로-옮길-때">CVA에서 정리한 내용을 호환 형식으로 옮길 때</h2>
+<p>공개 요약을 만드는 도구가 <strong>호환 시간축 JSON을 따로 내보내거나</strong>, 작성자가 아래 형식에 맞춰 자료를 준비해야 합니다. 이 문서는 현재 앱에 자동 변환 버튼이 있다고 안내하지 않습니다.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가로로 이동할 수 있는 표"><table><thead><tr><th scope="col">옮길 내용</th><th scope="col">호환 항목</th><th scope="col">확인할 것</th></tr></thead><tbody><tr><td>큰 흐름 D1</td><td><code>role: &quot;chapter&quot;</code>, <code>depth: 1</code></td><td>시작·끝이 확인된 큰 구간</td></tr><tr><td>그 안의 장면 D2</td><td><code>role: &quot;chapter&quot;</code>, <code>depth: 2</code></td><td>바로 위 D1과 구간 관계가 맞는지</td></tr><tr><td>이동할 한 순간 Point</td><td><code>role: &quot;point&quot;</code> 또는 role 생략</td><td><code>startSec</code>만 사용하며 끝을 임의로 붙이지 않음</td></tr><tr><td>검토 전 예상 구간</td><td>문서 <code>raw</code> 안의 <code>[H?]</code> 또는 <code>[예상]</code> 범위</td><td>확인한 시작·끝. 0.3.23은 <code>entries</code>의 <code>expected_highlight</code> 직접 입력을 거부하므로 원문 표기로 준비</td></tr><tr><td>작성자가 지정한 하이라이트</td><td><code>role: &quot;highlight&quot;</code></td><td>끝이 있는 제안 범위이며 실제 컷 선택은 별도</td></tr></tbody></table></div>
+<p>시각은 <strong>영상 시작부터 지난 정수 초</strong>입니다. 확인되지 않은 종료를 만들어 넣지 마세요. 이 형식은 장면 시간표를 전달하며, 공개 요약의 자막·채팅량·시청자 클립·모든 근거 자료를 통째로 복원하는 형식은 아닙니다. 항목의 원문 출처가 있으면 <code>raw</code>로 보존할 수 있고, <code>entries</code>로 만든 시간표는 원본 댓글이라고 표시하지 않습니다. 세부 필드와 제한은 <a href="files.html#시간축-json-가져오기">파일 형식과 예제</a>를 참고하세요.</p>
+<h2 id="열어-볼-수-있는-json-예제">열어 볼 수 있는 JSON 예제</h2>
+<p>아래는 <strong>10분짜리 가상 영상</strong>의 장면 시간표입니다. 실제 방송 분석 결과가 아니며 특정 다시보기에 자동으로 연결되지 않습니다. <a href="examples/summary-timeline.json">JSON 예제 열기</a>에서 파일을 확인하고 <code>.json</code>으로 저장할 수 있습니다.</p>
+<div class="code-example"><span class="code-label">JSON</span><pre><code>{
+  &quot;format&quot;: &quot;chzzk.comment-timeline&quot;,
+  &quot;version&quot;: 1,
+  &quot;documents&quot;: [{
+    &quot;name&quot;: &quot;가상 영상 요약 시간표&quot;,
+    &quot;raw&quot;: &quot;# 00:00 ~ 10:00 첫 게임\n## 01:00 ~ 05:00 첫 판\n- 02:35 다시 볼 순간\n- 03:00 ~ 03:20 [H?] 검토할 장면&quot;
+  }]
+}</code></pre></div>
+<p>예제의 D1은 <strong>00:00–10:00</strong>, D2는 <strong>01:00–05:00</strong>, Point는 <strong>02:35</strong>, 예상 구간은 <strong>03:00–03:20</strong>입니다. 숫자와 역할의 뜻은 별도 목차인 <a href="timeline.html">시간축 용어</a>에서 확인하세요.</p>
+<p>이 예제는 <code>raw</code>로 시간표 표기를 담아 <code>[H?]</code>의 후보 의미를 보존합니다. JSON 문자열의 <code>\n</code>은 줄바꿈입니다. 직접 항목 객체를 만드는 <code>entries</code> 예제와 필드 설명은 <a href="files.html#시간축-json-가져오기">파일 형식과 예제</a>에서 확인하세요.</p>
+<p>루트 <code>videoNo</code>는 선택사항입니다. 특정 다시보기용으로 지정했다면 현재 열린 영상 번호와 같아야 하며, 다르면 가져오기를 거부합니다. 이 예제에는 가상 영상 번호를 넣지 않았으므로 실제 작업에 사용하기 전 내용과 영상 길이를 확인하세요.</p>
+<h2 id="막힐-때-확인할-것">막힐 때 확인할 것</h2>
+<ul><li><strong>지원 형식 오류:</strong> 파일 안의 <code>format</code>, <code>version</code>, <code>documents</code>를 확인합니다. <code>viewer_editor_tools.v1</code> 요약 원본은 로컬 시간표 입력과 다릅니다.</li><li><strong>영상이 다르다는 안내:</strong> 루트 <code>videoNo</code>와 현재 다시보기를 확인합니다. 오류를 없애려고 다른 영상의 시간을 그대로 적용하지 마세요.</li><li><strong>시각·부모·종료 안내:</strong> 같은 영상의 실제 시각인지, D2의 D1 부모가 있는지, 시작보다 끝이 뒤인지 확인합니다.</li><li><strong>전체 공개 요약을 보고 싶은 경우:</strong> 해당 <a href="https://ttaem.com/#recent">요약 페이지</a>를 확인합니다. 호환 시간표 파일에는 모든 근거 자료가 포함되지 않습니다.</li></ul></article><nav class="page-turn" aria-label="이전 다음 문서"><a href="people.html"><small>이전 문서</small><span>인물과 합방 ←</span></a><a href="files.html"><small>다음 문서</small><span>파일 형식과 예제 →</span></a></nav><footer><p class="doc-meta">문서 규격 0.4 · 편집 초안</p>원문과 의도를 보존하며, 확인한 장면을 시간축에 담습니다.<br><a href="source/summary.md">이 문서의 Markdown 원본</a> · <a href="https://github.com/ttaem00/cva-ttaempad-timeline-spec/blob/main/LICENSE">MIT 라이선스</a></footer></main>
+    <aside class="toc"><nav aria-label="현재 문서 목차"><p>이 문서에서</p><a class="toc-depth-2" href="#어떤-자료를-가져오나요">어떤 자료를 가져오나요?</a><a class="toc-depth-2" href="#ttaem-com의-공개-요약을-사용하려면">ttaem.com의 공개 요약을 사용하려면</a><a class="toc-depth-2" href="#게시-없이-로컬-json으로-사용하려면">게시 없이 로컬 JSON으로 사용하려면</a><a class="toc-depth-2" href="#cva에서-정리한-내용을-호환-형식으로-옮길-때">CVA에서 정리한 내용을 호환 형식으로 옮길 때</a><a class="toc-depth-2" href="#열어-볼-수-있는-json-예제">열어 볼 수 있는 JSON 예제</a><a class="toc-depth-2" href="#막힐-때-확인할-것">막힐 때 확인할 것</a></nav></aside>
+  </div>
+  <dialog id="search-dialog" aria-labelledby="search-title"><form method="dialog" class="search-head"><h2 id="search-title">문서 검색</h2><button aria-label="검색 닫기">닫기</button></form><label for="search-input">찾을 내용</label><input id="search-input" type="search" placeholder="예: 들여쓰기, 괄호, 합방" autocomplete="off"><p id="search-status" role="status">단어를 입력하면 문서를 찾습니다.</p><div id="search-results"></div></dialog>
+  <noscript><p class="no-script">본문과 목차는 그대로 읽을 수 있습니다. 검색은 브라우저의 페이지 찾기(Ctrl+F)를 사용하세요.</p></noscript>
+</body></html>
